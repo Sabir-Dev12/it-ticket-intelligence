@@ -1,0 +1,25 @@
+$kind: http-request
+name: 'Update ticket'
+order: 4000
+method: PUT
+url: '{{baseUrl}}/api/tickets/{{ticketId}}'
+headers:
+  - key: Accept
+    value: application/json
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Updated database incident",
+      "description": "Connection logs collected.",
+      "category": "Database",
+      "priority": "High",
+      "revision": {{revision}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));

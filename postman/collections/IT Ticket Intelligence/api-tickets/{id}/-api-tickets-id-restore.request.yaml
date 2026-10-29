@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'Restore ticket'
+order: 9000
+method: POST
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/restore'
+headers:
+  - key: Accept
+    value: application/json
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "revision": {{revision}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));

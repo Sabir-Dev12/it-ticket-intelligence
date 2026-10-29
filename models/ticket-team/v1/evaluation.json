@@ -1,0 +1,1169 @@
+{
+  "modelVersion": "team-v1",
+  "trainer": "SdcaMaximumEntropy",
+  "seed": 20261024,
+  "iterations": 200,
+  "threads": 1,
+  "selectionPolicy": "Max validation macro-F1, then min validation log loss, then candidate ID. Test scored only after selection.",
+  "thresholdPolicy": "Fixed reference threshold 0.80 before training; not optimized using test. No automatic assignment at any confidence.",
+  "majorityLabel": "Support",
+  "selectedCandidate": "l2-0.001-balanced",
+  "distributions": {
+    "training": {
+      "tickets": 168,
+      "scenarios": 84,
+      "classCounts": {
+        "Support": 58,
+        "Network": 20,
+        "Database": 6,
+        "Security": 18,
+        "Backend": 40,
+        "Infrastructure": 26
+      },
+      "classScenarioCounts": {
+        "Support": 29,
+        "Network": 10,
+        "Database": 3,
+        "Security": 9,
+        "Backend": 20,
+        "Infrastructure": 13
+      }
+    },
+    "validation": {
+      "tickets": 36,
+      "scenarios": 18,
+      "classCounts": {
+        "Support": 10,
+        "Network": 4,
+        "Database": 4,
+        "Security": 4,
+        "Backend": 6,
+        "Infrastructure": 8
+      },
+      "classScenarioCounts": {
+        "Support": 5,
+        "Network": 2,
+        "Database": 2,
+        "Security": 2,
+        "Backend": 3,
+        "Infrastructure": 4
+      }
+    },
+    "test": {
+      "tickets": 36,
+      "scenarios": 18,
+      "classCounts": {
+        "Support": 10,
+        "Network": 6,
+        "Database": 4,
+        "Security": 4,
+        "Backend": 4,
+        "Infrastructure": 8
+      },
+      "classScenarioCounts": {
+        "Support": 5,
+        "Network": 3,
+        "Database": 2,
+        "Security": 2,
+        "Backend": 2,
+        "Infrastructure": 4
+      }
+    }
+  },
+  "candidates": [
+    {
+      "id": "l2-0.00001-unweighted",
+      "l2Regularization": 1E-05,
+      "useClassWeights": false,
+      "classWeights": {
+        "Support": 1,
+        "Network": 1,
+        "Database": 1,
+        "Security": 1,
+        "Backend": 1,
+        "Infrastructure": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3888888888888889,
+        "macroAccuracy": 0.325,
+        "logLoss": 2.1047752973665803,
+        "macroF1": 0.29540903540903546,
+        "top2Accuracy": 0.6111111111111112,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            4,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            3,
+            1
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.4666666666666667,
+            "recall": 0.7,
+            "f1": 0.56
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.6666666666666666,
+            "recall": 0.5,
+            "f1": 0.5714285714285715
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.25,
+            "recall": 0.5,
+            "f1": 0.3333333333333333
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.4,
+            "recall": 0.25,
+            "f1": 0.3076923076923077
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 16,
+          "needsHumanReview": 20,
+          "acceptedCorrect": 8,
+          "acceptedErrors": 8,
+          "coverage": 0.4444444444444444,
+          "accuracyWhenAccepted": 0.5
+        }
+      }
+    },
+    {
+      "id": "l2-0.00001-balanced",
+      "l2Regularization": 1E-05,
+      "useClassWeights": true,
+      "classWeights": {
+        "Support": 0.4827586,
+        "Network": 1.4,
+        "Database": 4.6666665,
+        "Security": 1.5555556,
+        "Backend": 0.7,
+        "Infrastructure": 1.0769231
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3888888888888889,
+        "macroAccuracy": 0.325,
+        "logLoss": 2.0489879203137114,
+        "macroF1": 0.29668737060041406,
+        "top2Accuracy": 0.6111111111111112,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            4,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            3,
+            3
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.5384615384615384,
+            "recall": 0.7,
+            "f1": 0.608695652173913
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.6666666666666666,
+            "recall": 0.5,
+            "f1": 0.5714285714285715
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.25,
+            "recall": 0.5,
+            "f1": 0.3333333333333333
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.2857142857142857,
+            "recall": 0.25,
+            "f1": 0.26666666666666666
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 16,
+          "needsHumanReview": 20,
+          "acceptedCorrect": 8,
+          "acceptedErrors": 8,
+          "coverage": 0.4444444444444444,
+          "accuracyWhenAccepted": 0.5
+        }
+      }
+    },
+    {
+      "id": "l2-0.0001-unweighted",
+      "l2Regularization": 0.0001,
+      "useClassWeights": false,
+      "classWeights": {
+        "Support": 1,
+        "Network": 1,
+        "Database": 1,
+        "Security": 1,
+        "Backend": 1,
+        "Infrastructure": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3611111111111111,
+        "macroAccuracy": 0.2833333333333333,
+        "logLoss": 1.8111821590826611,
+        "macroF1": 0.2530284043441938,
+        "top2Accuracy": 0.6111111111111112,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            4,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            3,
+            2
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.5,
+            "recall": 0.7,
+            "f1": 0.5833333333333334
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.5,
+            "recall": 0.25,
+            "f1": 0.3333333333333333
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.23076923076923078,
+            "recall": 0.5,
+            "f1": 0.3157894736842105
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.3333333333333333,
+            "recall": 0.25,
+            "f1": 0.28571428571428575
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 13,
+          "needsHumanReview": 23,
+          "acceptedCorrect": 7,
+          "acceptedErrors": 6,
+          "coverage": 0.3611111111111111,
+          "accuracyWhenAccepted": 0.5384615384615384
+        }
+      }
+    },
+    {
+      "id": "l2-0.0001-balanced",
+      "l2Regularization": 0.0001,
+      "useClassWeights": true,
+      "classWeights": {
+        "Support": 0.4827586,
+        "Network": 1.4,
+        "Database": 4.6666665,
+        "Security": 1.5555556,
+        "Backend": 0.7,
+        "Infrastructure": 1.0769231
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3888888888888889,
+        "macroAccuracy": 0.325,
+        "logLoss": 1.7450157026695097,
+        "macroF1": 0.29668737060041406,
+        "top2Accuracy": 0.6111111111111112,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            4,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            3,
+            3
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.5384615384615384,
+            "recall": 0.7,
+            "f1": 0.608695652173913
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.6666666666666666,
+            "recall": 0.5,
+            "f1": 0.5714285714285715
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.25,
+            "recall": 0.5,
+            "f1": 0.3333333333333333
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.2857142857142857,
+            "recall": 0.25,
+            "f1": 0.26666666666666666
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 11,
+          "needsHumanReview": 25,
+          "acceptedCorrect": 6,
+          "acceptedErrors": 5,
+          "coverage": 0.3055555555555556,
+          "accuracyWhenAccepted": 0.5454545454545454
+        }
+      }
+    },
+    {
+      "id": "l2-0.001-unweighted",
+      "l2Regularization": 0.001,
+      "useClassWeights": false,
+      "classWeights": {
+        "Support": 1,
+        "Network": 1,
+        "Database": 1,
+        "Security": 1,
+        "Backend": 1,
+        "Infrastructure": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3333333333333333,
+        "macroAccuracy": 0.25555555555555554,
+        "logLoss": 1.6115039769893724,
+        "macroF1": 0.23213387919270276,
+        "top2Accuracy": 0.5833333333333333,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            2,
+            2
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.4375,
+            "recall": 0.7,
+            "f1": 0.5384615384615384
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.5,
+            "recall": 0.25,
+            "f1": 0.3333333333333333
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.18181818181818182,
+            "recall": 0.3333333333333333,
+            "f1": 0.23529411764705885
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.3333333333333333,
+            "recall": 0.25,
+            "f1": 0.28571428571428575
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 3,
+          "needsHumanReview": 33,
+          "acceptedCorrect": 2,
+          "acceptedErrors": 1,
+          "coverage": 0.08333333333333333,
+          "accuracyWhenAccepted": 0.6666666666666666
+        }
+      }
+    },
+    {
+      "id": "l2-0.001-balanced",
+      "l2Regularization": 0.001,
+      "useClassWeights": true,
+      "classWeights": {
+        "Support": 0.4827586,
+        "Network": 1.4,
+        "Database": 4.6666665,
+        "Security": 1.5555556,
+        "Backend": 0.7,
+        "Infrastructure": 1.0769231
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.3888888888888889,
+        "macroAccuracy": 0.325,
+        "logLoss": 1.565614972681621,
+        "macroF1": 0.3034252297410192,
+        "top2Accuracy": 0.5833333333333334,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "labels": [
+          "Support",
+          "Network",
+          "Database",
+          "Security",
+          "Backend",
+          "Infrastructure"
+        ],
+        "confusionMatrix": [
+          [
+            7,
+            0,
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            1,
+            2,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            3,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            3,
+            3
+          ],
+          [
+            1,
+            1,
+            0,
+            1,
+            3,
+            2
+          ]
+        ],
+        "perClass": [
+          {
+            "team": "Support",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.6363636363636364,
+            "recall": 0.7,
+            "f1": 0.6666666666666666
+          },
+          {
+            "team": "Network",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0.6666666666666666,
+            "recall": 0.5,
+            "f1": 0.5714285714285715
+          },
+          {
+            "team": "Database",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Security",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          },
+          {
+            "team": "Backend",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 0.23076923076923078,
+            "recall": 0.5,
+            "f1": 0.3157894736842105
+          },
+          {
+            "team": "Infrastructure",
+            "support": 8,
+            "scenarios": 4,
+            "precision": 0.2857142857142857,
+            "recall": 0.25,
+            "f1": 0.26666666666666666
+          }
+        ],
+        "review": {
+          "threshold": 0.8,
+          "accepted": 1,
+          "needsHumanReview": 35,
+          "acceptedCorrect": 0,
+          "acceptedErrors": 1,
+          "coverage": 0.027777777777777776,
+          "accuracyWhenAccepted": 0
+        }
+      }
+    }
+  ],
+  "validation": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.3888888888888889,
+    "macroAccuracy": 0.325,
+    "logLoss": 1.565614972681621,
+    "macroF1": 0.3034252297410192,
+    "top2Accuracy": 0.5833333333333334,
+    "majorityBaselineAccuracy": 0.2777777777777778,
+    "labels": [
+      "Support",
+      "Network",
+      "Database",
+      "Security",
+      "Backend",
+      "Infrastructure"
+    ],
+    "confusionMatrix": [
+      [
+        7,
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      [
+        1,
+        2,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        3
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        3,
+        2
+      ]
+    ],
+    "perClass": [
+      {
+        "team": "Support",
+        "support": 10,
+        "scenarios": 5,
+        "precision": 0.6363636363636364,
+        "recall": 0.7,
+        "f1": 0.6666666666666666
+      },
+      {
+        "team": "Network",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1": 0.5714285714285715
+      },
+      {
+        "team": "Database",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "team": "Security",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "team": "Backend",
+        "support": 6,
+        "scenarios": 3,
+        "precision": 0.23076923076923078,
+        "recall": 0.5,
+        "f1": 0.3157894736842105
+      },
+      {
+        "team": "Infrastructure",
+        "support": 8,
+        "scenarios": 4,
+        "precision": 0.2857142857142857,
+        "recall": 0.25,
+        "f1": 0.26666666666666666
+      }
+    ],
+    "review": {
+      "threshold": 0.8,
+      "accepted": 1,
+      "needsHumanReview": 35,
+      "acceptedCorrect": 0,
+      "acceptedErrors": 1,
+      "coverage": 0.027777777777777776,
+      "accuracyWhenAccepted": 0
+    }
+  },
+  "test": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.4444444444444444,
+    "macroAccuracy": 0.3833333333333333,
+    "logLoss": 1.4277404735782666,
+    "macroF1": 0.36997505418558047,
+    "top2Accuracy": 0.6666666666666666,
+    "majorityBaselineAccuracy": 0.2777777777777778,
+    "labels": [
+      "Support",
+      "Network",
+      "Database",
+      "Security",
+      "Backend",
+      "Infrastructure"
+    ],
+    "confusionMatrix": [
+      [
+        8,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        4,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        3,
+        4
+      ]
+    ],
+    "perClass": [
+      {
+        "team": "Support",
+        "support": 10,
+        "scenarios": 5,
+        "precision": 0.6666666666666666,
+        "recall": 0.8,
+        "f1": 0.7272727272727272
+      },
+      {
+        "team": "Network",
+        "support": 6,
+        "scenarios": 3,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "team": "Database",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "team": "Security",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 1,
+        "recall": 0.5,
+        "f1": 0.6666666666666666
+      },
+      {
+        "team": "Backend",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0.13333333333333333,
+        "recall": 0.5,
+        "f1": 0.2105263157894737
+      },
+      {
+        "team": "Infrastructure",
+        "support": 8,
+        "scenarios": 4,
+        "precision": 0.8,
+        "recall": 0.5,
+        "f1": 0.6153846153846154
+      }
+    ],
+    "review": {
+      "threshold": 0.8,
+      "accepted": 2,
+      "needsHumanReview": 34,
+      "acceptedCorrect": 1,
+      "acceptedErrors": 1,
+      "coverage": 0.05555555555555555,
+      "accuracyWhenAccepted": 0.5
+    }
+  }
+}

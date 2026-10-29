@@ -1,0 +1,11 @@
+$kind: collection
+name: Assistant
+order: 16000
+description: 'Private ticket conversations. Inherits a JWT accessToken for Agent/Support/Admin and its current ticket scope. LLM/embeddings must be available; these requests append audit, predictions and conversation turns.'
+variables:
+  - key: articleId
+    value: ''
+  - key: assistantQuestion
+    value: 'Why is ticket #1045 failing?'
+  - key: assistantConversationId
+    value: '00000000-0000-0000-0000-000000000000'

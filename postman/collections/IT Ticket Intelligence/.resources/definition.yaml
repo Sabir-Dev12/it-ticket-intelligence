@@ -1,0 +1,30 @@
+$kind: collection
+name: IT Ticket Intelligence
+description: 'REST requests require a JWT accessToken with the appropriate role. Business requests also need existing userId and teamId. Technical MCP folders retain their own scoped credentials.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'
+variables:
+  - key: accessToken
+    value: ''
+  - key: baseUrl
+    value: 'http://127.0.0.1:5080'
+  - key: userId
+    value: '00000000-0000-0000-0000-000000000000'
+  - key: teamId
+    value: '00000000-0000-0000-0000-000000000000'
+  - key: ticketId
+    value: '00000000-0000-0000-0000-000000000000'
+  - key: revision
+    value: '1'
+scripts:
+  - type: http:afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code >= 200 && pm.response.code < 300 && pm.response.code !== 204 && (pm.response.headers.get('Content-Type') || '').includes('json')) {
+        const body = pm.response.json();
+        if (body.revision) { if (body.id) pm.collectionVariables.set('ticketId', body.id); pm.collectionVariables.set('revision', String(body.revision)); }
+        if (body.ticketRevision) pm.collectionVariables.set('revision', String(body.ticketRevision));
+      }

@@ -1,0 +1,29 @@
+$kind: http-request
+name: Prepare maximum length document
+order: 8000
+method: POST
+url: '{{baseUrl}}/api/knowledge'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Maximum length knowledge document",
+      "content": "{{largeKnowledgeText}}",
+      "source": "{{largeKnowledgeSource}}",
+      "format": "PlainText"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      pm.collectionVariables.set('largeKnowledgeText', 'x'.repeat(100000));
+      pm.collectionVariables.set('largeKnowledgeSource', 'postman/knowledge/large/' + pm.variables.replaceIn('{{$guid}}'));
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201 for a body above the default ticket limit', () => pm.response.to.have.status(201));
+      pm.test('Entire maximum length document is covered', () => { const d = pm.response.json(); pm.expect(d.content.length).to.eql(100000); pm.expect(d.cleanedContent.length).to.eql(100000); pm.expect(d.chunks[0].metadata.startOffset).to.eql(0); pm.expect(d.chunks[d.chunks.length-1].metadata.endOffset).to.eql(100000); pm.collectionVariables.set('largeKnowledgeId',d.id); });
+      pm.test('All large document chunks are bounded', () => { const d = pm.response.json(); pm.expect(d.chunks.length).to.be.above(1); for (const c of d.chunks) pm.expect(c.content.length).to.be.within(1,1200); });

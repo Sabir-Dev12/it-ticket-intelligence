@@ -1,0 +1,11 @@
+version: 1
+id: 0e558bdb-eeea-4a71-afed-2a57afbd7415
+name: ollama-embeddings
+slug: ollama-embeddings
+protocol: http
+interceptRequests: true
+port: 4902
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

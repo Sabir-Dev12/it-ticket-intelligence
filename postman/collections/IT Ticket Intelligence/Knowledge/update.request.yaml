@@ -1,0 +1,26 @@
+$kind: http-request
+name: Update and reprocess knowledge
+order: 4000
+method: PUT
+url: '{{baseUrl}}/api/knowledge/{{knowledgeId}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "SQL connection procedure",
+      "content": "# Procedure\n\nVerify service health before changing configuration.",
+      "source": "{{knowledgeSource}}",
+      "category": "Database",
+      "kind": "Procedure",
+      "format": "Markdown",
+      "version": 1
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('New version replaces chunks and metadata', () => { const d = pm.response.json(); pm.expect(d.version).to.eql(2); pm.expect(d.kind).to.eql('Procedure'); pm.expect(d.chunks).to.have.lengthOf(1); pm.expect(d.chunks[0].id).not.to.eql(pm.collectionVariables.get('oldKnowledgeChunk')); pm.expect(d.chunks[0].metadata.documentVersion).to.eql(2); pm.expect(d.chunks[0].metadata.kind).to.eql('Procedure'); pm.collectionVariables.set('knowledgeVersion', String(d.version)); });

@@ -1,0 +1,18 @@
+$kind: http-request
+name: Create private conversation
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/assistant/conversations'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "requestId": "{{$guid}}", "question": "{{assistantQuestion}}" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Created and never cached', () => { pm.response.to.have.status(201); pm.expect(pm.response.headers.get('Cache-Control')).to.include('no-store'); });
+      pm.test('Ticket resolved; no answer fabricated', () => { const c=pm.response.json(); pm.expect(c.ticketId).to.be.a('string'); pm.expect(c.turns).to.eql([]); pm.collectionVariables.set('assistantConversationId',c.id); });

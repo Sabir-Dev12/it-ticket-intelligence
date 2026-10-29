@@ -1,0 +1,11 @@
+$kind: http-request
+name: Index SQL guide with real embeddings
+order: 4000
+method: POST
+url: '{{baseUrl}}/api/rag/documents/{{ragSqlId}}/index'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Index queued without waiting for inference',()=>{pm.response.to.have.status(202);const job=pm.response.json();pm.expect(job.state).to.eql('Queued');pm.expect(job.documentId).to.eql(pm.collectionVariables.get('ragSqlId'));pm.collectionVariables.set('ragSqlIdJob',job.id);pm.collectionVariables.set('ragProfile',job.profile);});
+      pm.collectionVariables.set('ragPollCount',0);

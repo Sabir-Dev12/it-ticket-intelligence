@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'Get ticket'
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));

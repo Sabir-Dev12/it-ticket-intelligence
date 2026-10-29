@@ -1,0 +1,23 @@
+$kind: http-request
+name: MCP does not expose execute_sql
+order: 5000
+method: POST
+url: '{{baseUrl}}/mcp'
+headers:
+  - key: Accept
+    value: application/json, text/event-stream
+  - key: MCP-Protocol-Version
+    value: '2026-07-28'
+  - key: Mcp-Method
+    value: tools/call
+  - key: Mcp-Name
+    value: execute_sql
+body:
+  type: json
+  content: '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"execute_sql","arguments":{},"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{}}}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200 tool envelope',()=>pm.response.to.have.status(200));
+      pm.test('Unknown tool denied',()=>{const r=JSON.parse(pm.collectionVariables.get('mcpReply')).result;pm.expect(r.isError).to.eql(true);pm.expect(r.structuredContent.error.code).to.eql('UnknownTool');});

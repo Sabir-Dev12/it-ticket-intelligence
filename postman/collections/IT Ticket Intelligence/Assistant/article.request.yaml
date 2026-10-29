@@ -1,0 +1,15 @@
+$kind: http-request
+name: Ask about authorized indexed article
+order: 6000
+method: POST
+url: '{{baseUrl}}/api/assistant/knowledge/{{articleId}}/answers'
+body:
+  type: json
+  content: |-
+    { "question": "How should I investigate SQL Server connection timeouts?" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Structured article response',()=>{pm.response.to.have.status(200);const r=pm.response.json();pm.expect(r.answer.summary).to.be.a('string');pm.expect(r.answer.suggestedSteps).to.be.an('array');pm.expect(r.needsHumanReview).to.eql(true);});
+      pm.test('Citations stay within selected article',()=>{pm.expect(pm.response.json().citations.every(c=>c.documentId===pm.variables.get('articleId') && c.chunkId && c.contentHash)).to.eql(true);});

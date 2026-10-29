@@ -1,0 +1,19 @@
+$kind: http-request
+name: Investigate in conversation
+order: 2000
+method: POST
+url: '{{baseUrl}}/api/assistant/conversations/{{assistantConversationId}}/messages'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "requestId": "{{$guid}}", "content": "{{assistantQuestion}}" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Completed persisted turn', () => { pm.response.to.have.status(200); const t=pm.response.json().turns.at(-1); pm.expect(t.state).to.eql('Completed'); pm.expect(t.assistantMessage.role).to.eql('Assistant'); pm.expect(t.analysis.runId).to.eql(t.runId); });
+      pm.test('Sources and proposals preserve provenance', () => { const r=pm.response.json().turns.at(-1).analysis; pm.expect(r.requiresHumanReview).to.eql(true); r.recommendedActions.forEach(a=>pm.expect(a.requiresHumanApproval).to.eql(true)); r.sources.forEach(s=>{pm.expect(s.contentHash).to.match(/^[0-9a-f]{64}$/);pm.expect(s.documentVersion).to.be.above(0);}); });
+      pm.test('Actual audited ticket, history and knowledge reads', () => { const a=pm.response.json().turns.at(-1).activity; ['get_ticket','get_ticket_history','search_knowledge'].forEach(n=>pm.expect(a.some(x=>x.name===n && x.state==='Succeeded')).to.eql(true)); });

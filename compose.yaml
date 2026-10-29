@@ -1,0 +1,20 @@
+name: it-ticket-intelligence
+services:
+  postgres:
+    image: postgres:17-alpine@sha256:eee6c6e1b0894fa4fe0075eb054af9fd1cf39a35321c2d4110626cfe506411fb
+    environment:
+      POSTGRES_DB: it_ticket_intelligence
+      POSTGRES_USER: ticket_app
+      POSTGRES_PASSWORD: ${Database__Password:?Run scripts/Initialize-Postgres.ps1 to generate the local secret}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticket_app -d it_ticket_intelligence"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+volumes:
+  postgres_data:

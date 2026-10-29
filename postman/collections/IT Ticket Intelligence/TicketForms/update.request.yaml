@@ -1,0 +1,17 @@
+$kind: http-request
+name: Update fields and unassign atomically
+order: 3000
+method: PUT
+url: '{{baseUrl}}/api/tickets/{{ticketId}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "title": "Reviewed ticket form verification", "description": "Form verification fixture: additional diagnostics, no automatic remediation.", "category": "Database", "priority": "Medium", "revision": {{revision}}, "assignment": { "teamId": null } }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Confirmed update keeps identity and clears assignment', () => { pm.response.to.have.status(200); const r=pm.response.json(); pm.expect(r.title).to.eql('Reviewed ticket form verification'); pm.expect(r.priority).to.eql('Medium'); pm.expect(r.assignedTeamId).to.eql(null); pm.collectionVariables.set('revision',r.revision); });

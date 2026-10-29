@@ -1,0 +1,11 @@
+$kind: http-request
+name: Verify knowledge removal
+order: 7000
+method: GET
+url: '{{baseUrl}}/api/knowledge/{{knowledgeId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 404', () => pm.response.to.have.status(404));
+      pm.test('Deleted document cannot be retrieved', () => pm.expect(pm.response.json().status).to.eql(404));

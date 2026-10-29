@@ -1,0 +1,11 @@
+$kind: http-request
+name: Revoked chat denied
+order: 10000
+method: GET
+url: '{{baseUrl}}/api/ai/chat/conversations/{{conversationId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Revoked JWT denied',()=>pm.response.to.have.status(401));
+      pm.collectionVariables.unset('accessToken');

@@ -1,0 +1,11 @@
+$kind: http-request
+name: Revoked token denied
+order: 6000
+method: GET
+url: '{{baseUrl}}/api/tickets'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Replaying revoked JWT receives 401', () => pm.response.to.have.status(401));
+      pm.collectionVariables.unset('accessToken');

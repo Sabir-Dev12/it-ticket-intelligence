@@ -1,0 +1,10 @@
+$kind: http-request
+name: Read attachment metadata
+order: 5000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/attachments'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Metadata does not include binary data', () => { pm.response.to.have.status(200); const r=pm.response.json(); pm.expect(r.items).to.have.length(1); pm.expect(r.items[0]).not.to.have.property('data'); });

@@ -1,0 +1,17 @@
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { assistantApi, type ArticleAnswer } from '../../api/assistant';
+import { Button, PageHeader } from '../../components/ui';
+import { validId } from '../ticket-details/model';
+export function ArticleAssistant({ documentId }: {documentId:string}) {
+  const [draft,setDraft]=useState(''),[turns,setTurns]=useState<{question:string;answer:ArticleAnswer}[]>([]),[pending,setPending]=useState(false),[error,setError]=useState('');
+  const operation=useRef<AbortController|null>(null);
+  useEffect(()=>()=>operation.current?.abort(),[]);
+  const valid=validId(documentId);
+  return <div className="assistant-page"><PageHeader eyebrow="KNOWLEDGE ASSISTANT" title="Ask about this article." description="Answers use indexed article content that your account is authorized to read."/><section className="panel document-panel"><Link className="back-link" to={`/knowledge/${documentId}`}>Back to article</Link><p>Article context: {turns.at(-1)?.answer.citations[0]?.title ?? 'Selected knowledge article'}</p><p className="field-help">This view keeps the current exchange while open. Ticket investigation history is available in the ticket assistant.</p>
+    {!valid&&<p role="alert" className="inline-error">This article link is invalid.</p>}
+    <div aria-live="polite">{turns.map((turn,i)=><article key={i} className="document-panel"><h2>Your question</h2><p className="document-content">{turn.question}</p><h2>AI response</h2><p className="document-content">{turn.answer.answer.summary}</p>{turn.answer.answer.insufficientContext&&<p className="notice">The available article context is insufficient for a reliable answer.</p>}<h3>Suggested steps</h3><ul>{turn.answer.answer.suggestedSteps.map((step,j)=><li key={j}>{step}</li>)}</ul><h3>Sources</h3>{turn.answer.citations.length?<ul>{turn.answer.citations.map(source=><li key={source.chunkId}><Link to={`/knowledge/${source.documentId}`}>{source.title}</Link> · Version {source.documentVersion}</li>)}</ul>:<p>No sources were cited.</p>}<p className="field-help">Recommendations require review. No action has been executed.</p></article>)}</div>
+    <form className="chat-composer" onSubmit={async event=>{event.preventDefault();if(operation.current||!valid||!draft.trim())return;const question=draft.trim();const controller=new AbortController();operation.current=controller;setPending(true);setError('');try{const answer=await assistantApi.article(documentId,question,controller.signal);setTurns(old=>[...old,{question,answer}]);setDraft('');}catch(failure){if(!controller.signal.aborted)setError(failure instanceof Error?failure.message:'The article answer could not be loaded. Try again.');}finally{operation.current=null;setPending(false);}}}>
+      <label htmlFor="article-question">Question about this article</label><textarea id="article-question" rows={4} required maxLength={2000} disabled={pending||!valid} value={draft} onChange={event=>setDraft(event.target.value)}/>{error&&<p className="inline-error" role="alert">{error}</p>}<div className="form-actions"><Button className="primary" type="submit" loading={pending} disabled={!valid||!draft.trim()||pending}>Ask about article</Button>{pending&&<Button type="button" onClick={()=>operation.current?.abort()}>Cancel request</Button>}</div>{pending&&<p role="status">Retrieving authorized article context and waiting for Ollama…</p>}
+    </form><Link to="/ai-assistant">Investigate a ticket instead</Link></section></div>;
+}

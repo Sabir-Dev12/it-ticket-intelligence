@@ -1,0 +1,12 @@
+$kind: http-request
+name: Read ticket workspace without executing AI
+order: 1000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/workspace'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Active bounded team choices and assigned name', () => { const p=pm.response.json(); pm.expect(p.assignableTeams).to.be.an('array'); pm.expect(p.assignableTeams.length).to.be.at.most(200); pm.expect(p.assignableTeams.every(t=>t.isActive && t.id && t.name)).to.eql(true); pm.expect(p.teamsTruncated).to.be.a('boolean'); if(p.assignedTeam) pm.expect(p.assignedTeam.name).to.be.a('string'); });
+      pm.test('Saved analysis is nullable or a structured human-review proposal', () => { const a=pm.response.json().analysis; if(a) { pm.expect(a.createdAt).to.be.a('string'); pm.expect(a.result.facts.id).to.eql(pm.variables.get('ticketId')); pm.expect(a.result.requiresHumanReview).to.eql(true); pm.expect(a.result.sources).to.be.an('array'); pm.expect(a.result.recommendedActions.every(r=>r.requiresHumanApproval)).to.eql(true); } else pm.expect(a).to.eql(null); });

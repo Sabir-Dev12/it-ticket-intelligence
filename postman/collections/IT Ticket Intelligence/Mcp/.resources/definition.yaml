@@ -1,0 +1,20 @@
+$kind: collection
+name: MCP
+description: 'Streamable HTTP JSON-RPC checks. Requires mcpToken supplied outside Git. The validation token is scoped to a nonexistent ticket.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{mcpToken}}'
+variables:
+  - key: mcpToken
+    value: ''
+scripts:
+  - type: http:afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200) {
+        let text=pm.response.text();
+        if(text.includes('data: '))text=text.split('\n').filter(x=>x.startsWith('data: ')).pop().slice(6);
+        pm.collectionVariables.set('mcpReply', text);
+      }

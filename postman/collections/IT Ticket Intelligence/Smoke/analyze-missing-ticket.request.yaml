@@ -1,0 +1,11 @@
+$kind: http-request
+name: Analyze missing ticket
+order: 20000
+method: POST
+url: '{{baseUrl}}/api/tickets/ffffffff-ffff-ffff-ffff-ffffffffffff/analyze'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 404', () => pm.response.to.have.status(404));
+      pm.test('ProblemDetails with trace ID', () => { pm.expect(pm.response.headers.get('Content-Type')).to.include('application/problem+json'); const p = pm.response.json(); pm.expect(p.status).to.eql(404); pm.expect(p.traceId).to.be.a('string').and.not.empty; });

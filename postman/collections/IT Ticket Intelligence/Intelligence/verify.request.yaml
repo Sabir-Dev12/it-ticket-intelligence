@@ -1,0 +1,13 @@
+$kind: http-request
+name: Verify persisted analysis
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Predictions remain suggestions', () => { const p = pm.response.json(); pm.expect(p.category).to.eql(null); pm.expect(p.priority).to.eql(null); pm.expect(p.assignedTeamId).to.eql(null); pm.expect(p.status).to.eql('Open'); pm.expect(p.revision).to.eql(1); });
+      pm.test('Three versioned predictions form one analysis', () => { const p = pm.response.json(); pm.expect(p.predictions).to.have.lengthOf(3); pm.expect(new Set(p.predictions.map(r => r.analysisId)).size).to.eql(1); pm.expect(p.predictions.map(r => r.type).sort()).to.eql(['Category','Priority','TeamRouting']); for (const row of p.predictions) { pm.expect(row.inputRevision).to.eql(1); pm.expect(row.modelVersion).to.be.a('string').and.not.empty; pm.expect(row.reviewThreshold).to.be.above(0).and.at.most(1); pm.expect(row.needsHumanReview).to.eql(row.confidence < row.reviewThreshold); } pm.collectionVariables.set('firstAnalysisId', p.predictions[0].analysisId); });
+      pm.test('Persisted scores match aggregate response', () => { const p = pm.response.json(); const result = JSON.parse(pm.collectionVariables.get('analysisResult')); const category = p.predictions.find(r => r.type === 'Category'); const priority = p.predictions.find(r => r.type === 'Priority'); const team = p.predictions.find(r => r.type === 'TeamRouting'); pm.expect(category.predictedCategory).to.eql(result.category); pm.expect(category.confidence).to.eql(result.categoryConfidence); pm.expect(priority.predictedPriority).to.eql(result.priority); pm.expect(priority.confidence).to.eql(result.priorityConfidence); pm.expect(team.recommendedTeamName).to.eql(result.recommendedTeam); pm.expect(team.confidence).to.eql(result.teamConfidence); pm.expect(result.needsHumanReview).to.eql(p.predictions.some(r => r.needsHumanReview)); });

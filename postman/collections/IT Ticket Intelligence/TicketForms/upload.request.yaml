@@ -1,0 +1,27 @@
+$kind: http-request
+name: Upload text evidence
+order: 4000
+method: POST
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/attachments'
+body:
+  type: formdata
+  content:
+    - key: attachmentId
+      type: text
+      value: '{{attachmentId}}'
+    - key: revision
+      type: text
+      value: '{{revision}}'
+    - key: file
+      type: file
+      src: '{{attachmentFilePath}}'
+      contentType: text/plain
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      pm.collectionVariables.set('attachmentId',pm.variables.replaceIn('{{$guid}}'));
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Upload is durable and hashed', () => { pm.response.to.have.status(201); const r=pm.response.json(); pm.expect(r.created).to.eql(true); pm.expect(r.attachment.ticketId).to.eql(pm.collectionVariables.get('ticketId')); pm.expect(r.attachment.sha256).to.match(/^[0-9a-f]{64}$/); pm.expect(r.attachment.length).to.be.above(0); pm.collectionVariables.set('revision',r.revision); });

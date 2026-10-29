@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'OpenAPI contract'
+order: 13000
+method: GET
+url: '{{baseUrl}}/openapi/v1.json'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('All nine operations documented', () => { const paths = pm.response.json().paths; for (const [path, methods] of Object.entries({'/api/tickets':['post','get'], '/api/tickets/{id}':['get','put','delete'], '/api/tickets/{id}/status':['patch'], '/api/tickets/{id}/assignment':['patch'], '/api/tickets/{id}/comments':['post'], '/api/tickets/{id}/restore':['post']})) for (const method of methods) pm.expect(paths[path][method]).to.be.an('object'); });
+      pm.test('String enums match HTTP contract', () => { const values = pm.response.json().components.schemas.TicketStatus.enum; pm.expect(values).to.include('InProgress'); pm.expect(values.every(value => typeof value === 'string')).to.eql(true); });
+      pm.test('Category prediction is documented', () => pm.expect(pm.response.json().paths['/api/predictions/category'].post).to.be.an('object'));
+      pm.test('Priority prediction is documented', () => pm.expect(pm.response.json().paths['/api/predictions/priority'].post).to.be.an('object'));
+      pm.test('Team recommendation is documented', () => pm.expect(pm.response.json().paths['/api/predictions/team'].post).to.be.an('object'));
+      pm.test('Ticket analysis is documented', () => pm.expect(pm.response.json().paths['/api/tickets/{id}/analyze'].post).to.be.an('object'));
+      pm.test('All Knowledge operations are documented', () => { const p = pm.response.json().paths; for (const method of ['get','post']) pm.expect(p['/api/knowledge'][method]).to.be.an('object'); for (const method of ['get','put','delete']) pm.expect(p['/api/knowledge/{id}'][method]).to.be.an('object'); });
+      pm.test('RAG index and context routes are documented', () => { const p = pm.response.json().paths; pm.expect(p['/api/rag/retrieve'].post).to.be.an('object'); pm.expect(p['/api/rag/documents/{id}/index'].post).to.be.an('object'); });

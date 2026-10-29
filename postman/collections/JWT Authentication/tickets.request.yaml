@@ -1,0 +1,10 @@
+$kind: http-request
+name: Authorized tickets
+order: 4000
+method: GET
+url: '{{baseUrl}}/api/tickets'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Bearer authorizes tickets', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().items).to.be.an('array'); });

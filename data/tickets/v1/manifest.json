@@ -1,0 +1,72 @@
+{
+  "artifacts_sha256": {
+    "test.csv": "879a7d8c641e31b86decc436f63c15a2c75fc9fd1d69f8f0808d3352247bc8c3",
+    "training.csv": "b355eb05d630856731d19d06456ffbb12ca3e12ef99d92f5db8007fcb8059c2f",
+    "validation-report.json": "3f7fccde73674589be78e5e256afd4f1eb1ee1e3c841ce4a99c51ca9d2e35607",
+    "validation.csv": "f7711881732a49f4dc9973b795b945d5271b3388e42e9bc7c83e919da423c440"
+  },
+  "columns": [
+    "TicketId",
+    "ScenarioId",
+    "Title",
+    "Description",
+    "Category",
+    "Priority",
+    "RecommendedTeam"
+  ],
+  "dataset_version": "1.0.0",
+  "excluded_from_features": [
+    "TicketId",
+    "ScenarioId",
+    "Category",
+    "Priority",
+    "RecommendedTeam",
+    "rationale"
+  ],
+  "features": [
+    "Title",
+    "Description"
+  ],
+  "generator_sha256": "c528b7c5283f4efd2e306878bdddae7b622b96fb5e8a9375d77979a41261869b",
+  "human_annotation_review": "pending",
+  "labels": {
+    "Category": [
+      "Hardware",
+      "Software",
+      "Network",
+      "Database",
+      "Security",
+      "Billing",
+      "Account",
+      "Application",
+      "Other"
+    ],
+    "Priority": [
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ],
+    "RecommendedTeam": [
+      "Support",
+      "Network",
+      "Database",
+      "Security",
+      "Backend",
+      "Infrastructure"
+    ]
+  },
+  "language": "en",
+  "provenance": "synthetic_assistant_authored",
+  "rows": 240,
+  "scenario_groups": 120,
+  "seed": 20261023,
+  "source_sha256": "0e132af6c97714926199f7b9698c943820b7dad8c079e080db3295f7506567a4",
+  "split_method": "fixed category quotas; grouped multi-label distribution search (4000 fixed-seed candidates)",
+  "split_ratios": {
+    "test": 0.15,
+    "training": 0.7,
+    "validation": 0.15
+  },
+  "test_policy": "Frozen group assignment. Do not tune features, thresholds or models on test results. New corpus changes require a new version."
+}

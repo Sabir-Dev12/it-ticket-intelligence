@@ -1,0 +1,16 @@
+version: 1
+scope: Ticket creation and editing UI
+assumptions:
+  - Existing POST and PUT contracts now include the documented optional classification and assignment fields.
+  - The synthetic fixture exposes active teams, draft predictions and attachment routes matching OpenAPI paths.
+  - Multipart reads reuse the request body already captured by the Postman runtime.
+verified:
+  - Browser submits at most one ticket creation per action and does not recreate it after an upload failure.
+  - Revision conflicts preserve drafts and require review.
+  - Creation with an uncertain HTTP outcome disables further submission.
+  - ML suggestions remain unapplied until explicit user confirmation.
+  - Real API and PostgreSQL tests verify signatures, size and count limits, exact bytes, download headers and idempotent uploads.
+limits:
+  - The HTTP fixture is synthetic and is never used as an application fallback.
+  - Its multipart parsing is a test fixture, not the production validation or binary integrity boundary.
+  - User sign-in is outside this module; the existing creation contract requires an active user UUID.

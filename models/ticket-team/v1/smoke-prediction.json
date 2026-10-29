@@ -1,0 +1,12 @@
+{
+  "inputFile": "samples/team-prediction.json",
+  "expectedTeam": "Database",
+  "recommendation": {
+    "team": null,
+    "confidence": 0.3016349971294403,
+    "needsHumanReview": true,
+    "threshold": 0.8,
+    "modelVersion": "team-v1"
+  },
+  "outcome": "NeedsHumanReview"
+}

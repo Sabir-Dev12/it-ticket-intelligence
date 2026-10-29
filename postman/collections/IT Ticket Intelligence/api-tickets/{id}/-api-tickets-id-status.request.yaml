@@ -1,0 +1,22 @@
+$kind: http-request
+name: 'Start investigation'
+order: 5000
+method: PATCH
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/status'
+headers:
+  - key: Accept
+    value: application/json
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "InProgress",
+      "revision": {{revision}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));

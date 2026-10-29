@@ -1,0 +1,38 @@
+{
+  "contractVersion": 1,
+  "modelVersion": "team-v1",
+  "trainer": "SdcaMaximumEntropy",
+  "mlNetVersion": "5.0.1",
+  "datasetVersion": "1.0.0",
+  "trainedAtUtc": "2026-10-24T09:58:28.8554272+00:00",
+  "features": [
+    "Title",
+    "Description"
+  ],
+  "labels": [
+    "Backend",
+    "Database",
+    "Infrastructure",
+    "Network",
+    "Security",
+    "Support"
+  ],
+  "referenceThreshold": 0.8,
+  "useClassWeights": true,
+  "l2Regularization": 0.001,
+  "classWeights": {
+    "Support": 0.4827586,
+    "Network": 1.4,
+    "Database": 4.6666665,
+    "Security": 1.5555556,
+    "Backend": 0.7,
+    "Infrastructure": 1.0769231
+  },
+  "modelSha256": "20268c505a92a9150a42161a8c81c5a31d72bbd231d59959bbde6d7c6a112b96",
+  "datasetSha256": {
+    "training.csv": "b355eb05d630856731d19d06456ffbb12ca3e12ef99d92f5db8007fcb8059c2f",
+    "validation.csv": "f7711881732a49f4dc9973b795b945d5271b3388e42e9bc7c83e919da423c440",
+    "test.csv": "879a7d8c641e31b86decc436f63c15a2c75fc9fd1d69f8f0808d3352247bc8c3",
+    "manifest.json": "c373fcb4ba84bb777e85da01b76c45ba026ab9f0c87b3b0a37566bd405e4f1ae"
+  }
+}

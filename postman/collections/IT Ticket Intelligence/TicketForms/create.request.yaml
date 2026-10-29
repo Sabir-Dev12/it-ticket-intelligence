@@ -1,0 +1,17 @@
+$kind: http-request
+name: Create classified assigned ticket
+order: 2000
+method: POST
+url: '{{baseUrl}}/api/tickets'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "title": "Ticket form Postman verification", "description": "Form verification fixture: a reported SQL timeout.", "createdById": "{{userId}}", "category": "Database", "priority": "High", "assignedTeamId": "{{teamId}}" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Creation persists all confirmed fields', () => { pm.response.to.have.status(201); const r=pm.response.json(); pm.expect(r.category).to.eql('Database'); pm.expect(r.priority).to.eql('High'); pm.expect(r.assignedTeamId).to.eql(pm.variables.get('teamId')); pm.collectionVariables.set('ticketId',r.id); pm.collectionVariables.set('revision',r.revision); });

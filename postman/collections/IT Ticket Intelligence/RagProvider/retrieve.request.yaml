@@ -1,0 +1,18 @@
+$kind: http-request
+name: Embedding provider boundary
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/rag/retrieve'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "question": "SQL Server connection timeout" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Expected provider outcome', () => pm.response.to.have.status(Number(pm.environment.get('expectedStatus') || '503')));
+      pm.test('Dependency failure is ProblemDetails, never an LLM answer', () => { const p = pm.response.json(); pm.expect(p).not.to.have.property('answer'); if (pm.response.code === 503) { pm.expect(pm.response.headers.get('Content-Type')).to.include('application/problem+json'); pm.expect(p.status).to.eql(503); pm.expect(p.traceId).to.be.a('string'); } else { pm.expect(p.embeddingProfile).to.include('simulation-embedding'); pm.expect(p.results).to.have.lengthOf(0); } });

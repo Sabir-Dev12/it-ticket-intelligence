@@ -1,0 +1,10 @@
+$kind: http-request
+name: Read saved conversation
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/assistant/conversations/{{assistantConversationId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('History is durable and private', () => { pm.response.to.have.status(200); pm.expect(pm.response.headers.get('Cache-Control')).to.include('no-store'); const c=pm.response.json(); pm.expect(c.id).to.eql(pm.collectionVariables.get('assistantConversationId')); pm.expect(c.turns.length).to.be.above(0); });

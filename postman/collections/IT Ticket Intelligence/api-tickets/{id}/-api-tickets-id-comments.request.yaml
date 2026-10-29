@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'Add comment'
+order: 7000
+method: POST
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/comments'
+headers:
+  - key: Accept
+    value: application/json
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "authorId": "{{userId}}",
+      "message": "Investigation started.",
+      "revision": {{revision}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));

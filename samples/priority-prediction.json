@@ -1,0 +1,5 @@
+{
+  "title": "Production service unavailable to every office",
+  "description": "All employees are unable to access the production transaction service. Both the primary and backup connections have failed, work has stopped across all sites, and no alternative access is available.",
+  "category": "Network"
+}

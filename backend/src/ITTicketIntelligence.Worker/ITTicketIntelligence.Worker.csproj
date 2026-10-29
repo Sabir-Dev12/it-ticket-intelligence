@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <ItemGroup>
+    <ProjectReference Include="../ITTicketIntelligence.Application/ITTicketIntelligence.Application.csproj" />
+    <ProjectReference Include="../ITTicketIntelligence.Infrastructure/ITTicketIntelligence.Infrastructure.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
+  </ItemGroup>
+</Project>

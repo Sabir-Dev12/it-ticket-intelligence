@@ -1,0 +1,10 @@
+$kind: http-request
+name: Persisted history
+order: 7000
+method: GET
+url: '{{baseUrl}}/api/ai/chat/conversations/{{conversationId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Two persisted exchanges',()=>{pm.response.to.have.status(200);pm.expect(pm.response.json().messages.map(m=>m.role)).to.eql(['user','assistant','user','assistant']);});

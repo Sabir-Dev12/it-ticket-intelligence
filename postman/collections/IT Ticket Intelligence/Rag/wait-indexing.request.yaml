@@ -1,0 +1,21 @@
+$kind: http-request
+name: Wait for RAG indexing
+order: 6500
+method: GET
+url: '{{baseUrl}}/api/rag/index-jobs/{{ragSqlIdJob}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Job visible to administrator',()=>pm.response.to.have.status(200));
+      const jobs=[pm.response.json()];
+      for(const variable of ['ragVpnIdJob','ragBillingIdJob']){
+        const response=await pm.sendRequest({url:pm.variables.get('baseUrl')+'/api/rag/index-jobs/'+pm.collectionVariables.get(variable),header:{Authorization:'Bearer '+pm.variables.get('accessToken')}});
+        jobs.push(response.json());
+      }
+      if(jobs.every(j=>j.state==='Succeeded')){pm.test('All documents indexed',()=>pm.expect(jobs.every(j=>j.state==='Succeeded')).to.eql(true));}
+      else {
+        const count=Number(pm.collectionVariables.get('ragPollCount')||0)+1;pm.collectionVariables.set('ragPollCount',count);
+        if(count>=60 || jobs.some(j=>['Failed','RequiresReindex'].includes(j.state))){pm.test('Indexing completed within polling budget',()=>pm.expect(jobs.map(j=>j.state)).to.eql(['Succeeded','Succeeded','Succeeded']));pm.execution.setNextRequest(null);}
+        else {await new Promise(resolve=>setTimeout(resolve,1000));pm.execution.setNextRequest('Wait for RAG indexing');}
+      }

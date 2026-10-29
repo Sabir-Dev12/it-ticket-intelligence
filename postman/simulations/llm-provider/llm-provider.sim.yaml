@@ -1,0 +1,6 @@
+simulation: llm-provider
+routing: path
+mocks:
+  - name: Structured LLM contract
+    routeKey: llm
+    path: postman/mocks/llm-provider/config.yaml

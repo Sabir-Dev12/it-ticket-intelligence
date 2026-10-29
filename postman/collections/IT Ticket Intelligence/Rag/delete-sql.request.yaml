@@ -1,0 +1,10 @@
+$kind: http-request
+name: Delete SQL fixture and vectors
+order: 9000
+method: DELETE
+url: '{{baseUrl}}/api/knowledge/{{ragSqlId}}?version=1'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 204', () => pm.response.to.have.status(204));

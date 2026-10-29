@@ -1,0 +1,10 @@
+$kind: http-request
+name: Local health
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/ai/chat/health'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Configured local model present',()=>{pm.response.to.have.status(200);pm.expect(pm.response.json().healthy).to.eql(true);});

@@ -1,0 +1,12 @@
+$kind: http-request
+name: Private history requires authentication
+order: 5000
+method: GET
+url: '{{baseUrl}}/api/assistant/conversations'
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Unauthenticated access rejected without caching', () => { pm.response.to.have.status(401); pm.expect(pm.response.headers.get('Cache-Control')).to.include('no-store'); });

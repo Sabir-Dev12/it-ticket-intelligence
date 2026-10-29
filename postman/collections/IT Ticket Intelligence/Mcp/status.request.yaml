@@ -1,0 +1,23 @@
+$kind: http-request
+name: MCP coarse system status
+order: 2000
+method: POST
+url: '{{baseUrl}}/mcp'
+headers:
+  - key: Accept
+    value: application/json, text/event-stream
+  - key: MCP-Protocol-Version
+    value: '2026-07-28'
+  - key: Mcp-Method
+    value: tools/call
+  - key: Mcp-Name
+    value: get_system_status
+body:
+  type: json
+  content: '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_system_status","arguments":{},"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{}}}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200',()=>pm.response.to.have.status(200));
+      pm.test('Coarse status without database secrets',()=>{const r=JSON.parse(pm.collectionVariables.get('mcpReply')).result;pm.expect(r.isError===true).to.eql(false);pm.expect(r.structuredContent.service).to.eql('ITTicketIntelligence');pm.expect(r.structuredContent.database).to.eql('Available');pm.expect(r.structuredContent.readOnlyTools).to.eql(true);pm.expect(JSON.stringify(r)).not.to.match(/Password=|Username=|Host=/);});

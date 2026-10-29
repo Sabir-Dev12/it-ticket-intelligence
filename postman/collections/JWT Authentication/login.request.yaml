@@ -1,0 +1,17 @@
+$kind: http-request
+name: Login
+order: 2000
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+auth:
+  type: noauth
+body:
+  type: json
+  content: |-
+    { "email": "{{authEmail}}", "password": "{{authPassword}}" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Login returns JWT valid until revocation', () => { pm.response.to.have.status(200); const r=pm.response.json(); pm.expect(r.tokenType).to.eql('Bearer'); pm.expect(r.expiresIn).to.eql(null); pm.expect(r.accessToken.split('.')).to.have.length(3); pm.collectionVariables.set('accessToken',r.accessToken); });
+      pm.test('Login is not cached and sets no cookie', () => { pm.expect(pm.response.headers.get('Cache-Control')).to.include('no-store'); pm.expect(pm.response.headers.has('Set-Cookie')).to.eql(false); });

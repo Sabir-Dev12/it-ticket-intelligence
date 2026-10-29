@@ -1,0 +1,10 @@
+$kind: http-request
+name: Download safe evidence response
+order: 6000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/attachments/{{attachmentId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Evidence is an attachment without MIME sniffing', () => { pm.response.to.have.status(200); pm.expect(pm.response.headers.get('Content-Disposition')).to.include('attachment'); pm.expect(pm.response.headers.get('X-Content-Type-Options')).to.eql('nosniff'); pm.expect(pm.response.headers.get('Content-Security-Policy')).to.include('sandbox'); });

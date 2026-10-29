@@ -1,0 +1,6 @@
+simulation: rag-provider
+routing: path
+mocks:
+  - name: Ollama embed contract
+    routeKey: ollama
+    path: postman/mocks/ollama-embeddings/config.yaml

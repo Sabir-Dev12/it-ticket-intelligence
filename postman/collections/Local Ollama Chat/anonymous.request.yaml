@@ -1,0 +1,12 @@
+$kind: http-request
+name: Anonymous denied
+order: 2000
+method: GET
+url: '{{baseUrl}}/api/ai/chat/health'
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Anonymous denied',()=>pm.response.to.have.status(401));

@@ -1,0 +1,12 @@
+$kind: http-request
+name: Verify both analysis runs remain
+order: 5000
+method: GET
+url: '{{baseUrl}}/api/tickets/{{ticketId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('History contains two complete analysis batches', () => { const p = pm.response.json(); pm.expect(p.predictions).to.have.lengthOf(6); const groups = Object.groupBy(p.predictions, row => row.analysisId); pm.expect(Object.keys(groups)).to.have.lengthOf(2); pm.expect(Object.keys(groups)).to.include(pm.collectionVariables.get('firstAnalysisId')); for (const rows of Object.values(groups)) pm.expect(rows.map(r => r.type).sort()).to.eql(['Category','Priority','TeamRouting']); });
+      pm.test('No automatic ticket changes after repeated analysis', () => { const p = pm.response.json(); pm.expect(p.revision).to.eql(1); pm.expect(p.category).to.eql(null); pm.expect(p.priority).to.eql(null); pm.expect(p.assignedTeamId).to.eql(null); });

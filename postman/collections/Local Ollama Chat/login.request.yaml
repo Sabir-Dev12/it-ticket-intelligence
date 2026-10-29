@@ -1,0 +1,16 @@
+$kind: http-request
+name: Login
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+auth:
+  type: noauth
+body:
+  type: json
+  content: |-
+    { "email": "{{authEmail}}", "password": "{{authPassword}}" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('JWT login',()=>{pm.response.to.have.status(200);pm.collectionVariables.set('accessToken',pm.response.json().accessToken);});

@@ -1,0 +1,22 @@
+$kind: http-request
+name: Team recommendation with review policy
+order: 18000
+method: POST
+url: '{{baseUrl}}/api/predictions/team'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "SQL transactions blocked by long running locks",
+      "description": "Writes to the production order tables wait behind a long transaction. The database is reachable, but lock waits are growing and orders cannot be processed at the normal rate."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Team confidence is finite and versioned', () => { const p = pm.response.json(); pm.expect(Number.isFinite(p.confidence)).to.eql(true); pm.expect(p.confidence).to.be.within(0,1); pm.expect(p.threshold).to.be.above(0).and.at.most(1); pm.expect(p.modelVersion).to.be.a('string').and.not.empty; });
+      pm.test('Low confidence withholds the team', () => { const p = pm.response.json(); pm.expect(p.needsHumanReview).to.eql(p.confidence < p.threshold); if (p.needsHumanReview) pm.expect(p.team).to.eql(null); else pm.expect(['Support','Network','Database','Security','Backend','Infrastructure']).to.include(p.team); });

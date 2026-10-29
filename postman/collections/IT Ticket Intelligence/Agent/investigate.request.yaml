@@ -1,0 +1,12 @@
+$kind: http-request
+name: Investigate ticket with AI Agent
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/investigate'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Facts and hypotheses are separate and review is mandatory', () => { const r=pm.response.json(); pm.expect(r.facts.id).to.eql(pm.collectionVariables.get('ticketId')); pm.expect(r.ticketRevision).to.eql(r.facts.revision); pm.expect(r.requiresHumanReview).to.eql(true); pm.expect(r.diagnosis).to.match(/^Hypothesis:/); pm.expect(r.confidence).to.be.within(0,1); r.recommendedActions.forEach(a=>pm.expect(a.requiresHumanApproval).to.eql(true)); });
+      pm.test('Sources have canonical provenance', () => { const r=pm.response.json(); r.sources.forEach(s=>{pm.expect(s.documentId).to.be.a('string');pm.expect(s.chunkId).to.be.a('string');pm.expect(s.documentVersion).to.be.above(0);pm.expect(s.contentHash).to.match(/^[0-9a-f]{64}$/);}); if(!r.sources.length)pm.expect(r.confidence).to.eql(0); });

@@ -1,0 +1,10 @@
+.user-management { display: grid; gap: var(--space-6); align-items: start; }
+.user-management > section { min-inline-size: 0; }
+.user-management .section-header { flex-wrap: wrap; gap: var(--space-3); padding: 0; }
+.user-management .field-help { margin-block: var(--space-3); }
+.user-management fieldset { display: grid; gap: var(--space-5); }
+.user-management select { width: 100%; min-height: var(--control-height); border: var(--border-width) solid var(--color-control-border); border-radius: var(--radius-sm); padding: var(--space-3); font: inherit; color: var(--color-text); background: var(--color-surface); }
+.account-list { list-style: none; padding: 0; margin: 0; }
+.account-list li { display: grid; gap: var(--space-2); padding-block: var(--space-4); border-block-end: var(--border-width) solid var(--color-border); overflow-wrap: anywhere; }
+.account-list li > span { color: var(--color-muted); }
+@media (min-width: 80rem) { .user-management { grid-template-columns: 1fr 1fr; } }

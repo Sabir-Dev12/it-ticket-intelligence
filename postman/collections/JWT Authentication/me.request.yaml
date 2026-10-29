@@ -1,0 +1,10 @@
+$kind: http-request
+name: Current identity
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/auth/me'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('JWT resolves active administrator', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().role).to.eql('Admin'); });

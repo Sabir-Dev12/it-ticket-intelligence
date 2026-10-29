@@ -1,0 +1,6 @@
+$kind: collection
+name: SignalR backend
+description: 'Negotiation checks only. Full hub invocations and deliveries are covered by the .NET integration tests.'
+variables:
+  - key: signalrToken
+    value: ''

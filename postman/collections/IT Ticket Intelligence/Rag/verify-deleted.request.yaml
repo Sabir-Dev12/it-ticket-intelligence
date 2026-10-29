@@ -1,0 +1,18 @@
+$kind: http-request
+name: Deleted document is excluded from retrieval
+order: 12000
+method: POST
+url: '{{baseUrl}}/api/rag/retrieve'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "question": "SQL Server connection timeout", "documentId": "{{ragSqlId}}", "minimumScore": -1 }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Deleted vectors cannot yield context', () => pm.expect(pm.response.json().results).to.have.lengthOf(0));

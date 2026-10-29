@@ -1,0 +1,11 @@
+$kind: http-request
+name: Reject stale knowledge deletion
+order: 5000
+method: DELETE
+url: '{{baseUrl}}/api/knowledge/{{knowledgeId}}?version=1'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 409', () => pm.response.to.have.status(409));
+      pm.test('Conflict uses ProblemDetails', () => { pm.expect(pm.response.headers.get('Content-Type')).to.include('application/problem+json'); pm.expect(pm.response.json().status).to.eql(409); });

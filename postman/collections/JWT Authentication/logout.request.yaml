@@ -1,0 +1,10 @@
+$kind: http-request
+name: Logout
+order: 5000
+method: POST
+url: '{{baseUrl}}/api/auth/logout'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Logout confirmed by server', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().signedOut).to.eql(true); });

@@ -1,0 +1,19 @@
+$kind: http-request
+name: Retrieve SQL timeout context
+order: 7000
+method: POST
+url: '{{baseUrl}}/api/rag/retrieve'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    { "question": "SQL Server connection timeout", "limit": 3, "minimumScore": -1 }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('SQL guide is more relevant than VPN and billing', () => { const p = pm.response.json(); pm.expect(p.results.length).to.be.at.least(3); const own = p.results.filter(r => [pm.collectionVariables.get('ragSqlId'),pm.collectionVariables.get('ragVpnId'),pm.collectionVariables.get('ragBillingId')].includes(r.documentId)); pm.expect(own).to.have.lengthOf(3); pm.expect(own[0].documentId).to.eql(pm.collectionVariables.get('ragSqlId')); pm.expect(own[0].title).to.eql('SQL Server connection timeout'); pm.expect(p.embeddingProfile).to.eql(pm.collectionVariables.get('ragProfile')); });
+      pm.test('Context contains canonical chunks scores and provenance without an answer', () => { const p = pm.response.json(); pm.expect(p).not.to.have.property('answer'); for (let i=0;i<p.results.length;i++) { const r = p.results[i]; pm.expect(r.chunk).to.be.a('string').and.not.empty; pm.expect(r.chunkId).to.be.a('string'); pm.expect(r.relevanceScore).to.be.within(-1,1); pm.expect(r.metadata.documentId).to.eql(r.documentId); pm.expect(r.metadata.title).to.eql(r.title); pm.expect(r.metadata.documentVersion).to.eql(1); pm.expect(r.metadata.contentHash).to.match(/^[0-9a-f]{64}$/); if (i>0) pm.expect(p.results[i-1].relevanceScore).to.be.at.least(r.relevanceScore); } });

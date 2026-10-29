@@ -1,0 +1,10 @@
+$kind: http-request
+name: Ticket form active teams
+order: 1000
+method: GET
+url: '{{baseUrl}}/api/tickets/form-options'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Active team choices are bounded', () => { pm.response.to.have.status(200); const r=pm.response.json(); pm.expect(r.teams.length).to.be.at.most(200); pm.expect(r.teamsTruncated).to.be.a('boolean'); r.teams.forEach(t=>pm.expect(t.isActive).to.eql(true)); });

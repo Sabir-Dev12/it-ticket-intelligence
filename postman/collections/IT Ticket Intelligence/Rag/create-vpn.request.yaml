@@ -1,0 +1,24 @@
+$kind: http-request
+name: Create VPN guide
+order: 2000
+method: POST
+url: '{{baseUrl}}/api/knowledge'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Remote access VPN troubleshooting",
+      "content": "If a remote employee cannot establish a VPN tunnel, verify internet connectivity, the VPN client profile and multi factor authentication. Check VPN gateway health, device certificates and split tunnel routes. Reconnect the VPN client after refreshing credentials.",
+      "source": "{{ragSource}}/vpn",
+      "category": "Network",
+      "kind": "TroubleshootingGuide"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));
+      pm.collectionVariables.set('ragVpnId',pm.response.json().id);

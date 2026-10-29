@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'Archive ticket'
+order: 8000
+method: DELETE
+url: '{{baseUrl}}/api/tickets/{{ticketId}}?revision={{revision}}'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 204', () => pm.response.to.have.status(204));
+      if (pm.response.code === 204) pm.collectionVariables.set('revision', String(Number(pm.collectionVariables.get('revision')) + 1));

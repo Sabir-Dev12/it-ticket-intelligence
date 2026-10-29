@@ -1,0 +1,761 @@
+{
+  "modelVersion": "priority-v1",
+  "trainer": "SdcaMaximumEntropy",
+  "seed": 20261024,
+  "iterations": 200,
+  "threads": 1,
+  "categoryInputPolicy": "provided-at-creation",
+  "selectionPolicy": "Max validation macro-F1; ties: Critical recall descending, log loss ascending, candidate ID. Test evaluated only after selection.",
+  "majorityLabel": "Medium",
+  "selectedCandidate": "l2-0.0001-balanced",
+  "distributions": {
+    "training": {
+      "tickets": 168,
+      "scenarios": 84,
+      "classCounts": {
+        "Low": 30,
+        "Medium": 62,
+        "High": 60,
+        "Critical": 16
+      },
+      "classScenarioCounts": {
+        "Low": 15,
+        "Medium": 31,
+        "High": 30,
+        "Critical": 8
+      }
+    },
+    "validation": {
+      "tickets": 36,
+      "scenarios": 18,
+      "classCounts": {
+        "Low": 6,
+        "Medium": 10,
+        "High": 16,
+        "Critical": 4
+      },
+      "classScenarioCounts": {
+        "Low": 3,
+        "Medium": 5,
+        "High": 8,
+        "Critical": 2
+      }
+    },
+    "test": {
+      "tickets": 36,
+      "scenarios": 18,
+      "classCounts": {
+        "Low": 6,
+        "Medium": 14,
+        "High": 12,
+        "Critical": 4
+      },
+      "classScenarioCounts": {
+        "Low": 3,
+        "Medium": 7,
+        "High": 6,
+        "Critical": 2
+      }
+    }
+  },
+  "candidates": [
+    {
+      "id": "l2-0.00001-unweighted",
+      "l2Regularization": 1E-05,
+      "useClassWeights": false,
+      "classWeights": {
+        "Low": 1,
+        "Medium": 1,
+        "High": 1,
+        "Critical": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.8055555555555556,
+        "macroAccuracy": 0.69375,
+        "logLoss": 0.5546858360017954,
+        "macroF1": 0.6642857142857143,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.19444444444444445,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 1,
+            "f1": 1
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428572
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.7368421052631579,
+            "recall": 0.875,
+            "f1": 0.7999999999999999
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "l2-0.00001-balanced",
+      "l2Regularization": 1E-05,
+      "useClassWeights": true,
+      "classWeights": {
+        "Low": 1.4,
+        "Medium": 0.67741936,
+        "High": 0.7,
+        "Critical": 2.625
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.8055555555555556,
+        "macroAccuracy": 0.69375,
+        "logLoss": 0.5378336178476496,
+        "macroF1": 0.6642857142857143,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.19444444444444445,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 1,
+            "f1": 1
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428572
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.7368421052631579,
+            "recall": 0.875,
+            "f1": 0.7999999999999999
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "l2-0.0001-unweighted",
+      "l2Regularization": 0.0001,
+      "useClassWeights": false,
+      "classWeights": {
+        "Low": 1,
+        "Medium": 1,
+        "High": 1,
+        "Critical": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.8055555555555556,
+        "macroAccuracy": 0.69375,
+        "logLoss": 0.5759803566630106,
+        "macroF1": 0.6642857142857143,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.19444444444444445,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 1,
+            "f1": 1
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428572
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.7368421052631579,
+            "recall": 0.875,
+            "f1": 0.7999999999999999
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "l2-0.0001-balanced",
+      "l2Regularization": 0.0001,
+      "useClassWeights": true,
+      "classWeights": {
+        "Low": 1.4,
+        "Medium": 0.67741936,
+        "High": 0.7,
+        "Critical": 2.625
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.8333333333333334,
+        "macroAccuracy": 0.709375,
+        "logLoss": 0.5565559344021351,
+        "macroF1": 0.6833333333333333,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.16666666666666666,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            15,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 1,
+            "f1": 1
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.9,
+            "recall": 0.9,
+            "f1": 0.9
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.75,
+            "recall": 0.9375,
+            "f1": 0.8333333333333334
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "l2-0.001-unweighted",
+      "l2Regularization": 0.001,
+      "useClassWeights": false,
+      "classWeights": {
+        "Low": 1,
+        "Medium": 1,
+        "High": 1,
+        "Critical": 1
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.7777777777777778,
+        "macroAccuracy": 0.6520833333333333,
+        "logLoss": 0.7865289761002838,
+        "macroF1": 0.6318181818181818,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.2222222222222222,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            5,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.75,
+            "recall": 0.9,
+            "f1": 0.8181818181818182
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.7368421052631579,
+            "recall": 0.875,
+            "f1": 0.7999999999999999
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "l2-0.001-balanced",
+      "l2Regularization": 0.001,
+      "useClassWeights": true,
+      "classWeights": {
+        "Low": 1.4,
+        "Medium": 0.67741936,
+        "High": 0.7,
+        "Critical": 2.625
+      },
+      "validation": {
+        "tickets": 36,
+        "scenarios": 18,
+        "accuracy": 0.8055555555555556,
+        "macroAccuracy": 0.69375,
+        "logLoss": 0.792970816061635,
+        "macroF1": 0.6642857142857143,
+        "majorityBaselineAccuracy": 0.2777777777777778,
+        "criticalRecall": 0,
+        "criticalFalseNegatives": 4,
+        "severeUnderestimates": 0,
+        "meanAbsoluteOrdinalError": 0.19444444444444445,
+        "labels": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "confusionMatrix": [
+          [
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            4,
+            0
+          ]
+        ],
+        "perClass": [
+          {
+            "priority": "Low",
+            "support": 6,
+            "scenarios": 3,
+            "precision": 1,
+            "recall": 1,
+            "f1": 1
+          },
+          {
+            "priority": "Medium",
+            "support": 10,
+            "scenarios": 5,
+            "precision": 0.8181818181818182,
+            "recall": 0.9,
+            "f1": 0.8571428571428572
+          },
+          {
+            "priority": "High",
+            "support": 16,
+            "scenarios": 8,
+            "precision": 0.7368421052631579,
+            "recall": 0.875,
+            "f1": 0.7999999999999999
+          },
+          {
+            "priority": "Critical",
+            "support": 4,
+            "scenarios": 2,
+            "precision": 0,
+            "recall": 0,
+            "f1": 0
+          }
+        ]
+      }
+    }
+  ],
+  "validation": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.8333333333333334,
+    "macroAccuracy": 0.709375,
+    "logLoss": 0.5565559344021351,
+    "macroF1": 0.6833333333333333,
+    "majorityBaselineAccuracy": 0.2777777777777778,
+    "criticalRecall": 0,
+    "criticalFalseNegatives": 4,
+    "severeUnderestimates": 0,
+    "meanAbsoluteOrdinalError": 0.16666666666666666,
+    "labels": [
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ],
+    "confusionMatrix": [
+      [
+        6,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        9,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        15,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        0
+      ]
+    ],
+    "perClass": [
+      {
+        "priority": "Low",
+        "support": 6,
+        "scenarios": 3,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "priority": "Medium",
+        "support": 10,
+        "scenarios": 5,
+        "precision": 0.9,
+        "recall": 0.9,
+        "f1": 0.9
+      },
+      {
+        "priority": "High",
+        "support": 16,
+        "scenarios": 8,
+        "precision": 0.75,
+        "recall": 0.9375,
+        "f1": 0.8333333333333334
+      },
+      {
+        "priority": "Critical",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      }
+    ]
+  },
+  "test": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.75,
+    "macroAccuracy": 0.6547619047619047,
+    "logLoss": 0.7037270223800896,
+    "macroF1": 0.6574074074074074,
+    "majorityBaselineAccuracy": 0.3888888888888889,
+    "criticalRecall": 0.25,
+    "criticalFalseNegatives": 3,
+    "severeUnderestimates": 0,
+    "meanAbsoluteOrdinalError": 0.25,
+    "labels": [
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ],
+    "confusionMatrix": [
+      [
+        4,
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        11,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        11,
+        1
+      ],
+      [
+        0,
+        0,
+        3,
+        1
+      ]
+    ],
+    "perClass": [
+      {
+        "priority": "Low",
+        "support": 6,
+        "scenarios": 3,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1": 0.6666666666666666
+      },
+      {
+        "priority": "Medium",
+        "support": 14,
+        "scenarios": 7,
+        "precision": 0.8461538461538461,
+        "recall": 0.7857142857142857,
+        "f1": 0.8148148148148148
+      },
+      {
+        "priority": "High",
+        "support": 12,
+        "scenarios": 6,
+        "precision": 0.7333333333333333,
+        "recall": 0.9166666666666666,
+        "f1": 0.8148148148148148
+      },
+      {
+        "priority": "Critical",
+        "support": 4,
+        "scenarios": 2,
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1": 0.3333333333333333
+      }
+    ]
+  }
+}

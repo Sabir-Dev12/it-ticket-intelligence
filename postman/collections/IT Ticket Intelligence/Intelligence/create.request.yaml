@@ -1,0 +1,22 @@
+$kind: http-request
+name: Create ticket for analysis
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/tickets'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "SQL transactions blocked by long running locks",
+      "description": "Writes to the production order tables wait behind a long transaction. The database is reachable, but lock waits are growing and orders cannot be processed at the normal rate.",
+      "createdById": "{{userId}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));
+      pm.test('Unclassified ticket with no predictions', () => { const p = pm.response.json(); pm.expect(p.category).to.eql(null); pm.expect(p.priority).to.eql(null); pm.expect(p.assignedTeamId).to.eql(null); pm.expect(p.predictions).to.have.lengthOf(0); pm.expect(p.revision).to.eql(1); });

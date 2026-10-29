@@ -1,0 +1,14 @@
+$kind: http-request
+name: Unknown model denied
+order: 8000
+method: POST
+url: '{{baseUrl}}/api/ai/chat/conversations/{{conversationId}}/messages'
+body:
+  type: json
+  content: |-
+    { "message": "Hello", "model": "deepseek-v4-pro:cloud" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Model allowlist enforced',()=>pm.response.to.have.status(400));

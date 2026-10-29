@@ -1,0 +1,9 @@
+simulation: ticket-details-providers
+routing: path
+mocks:
+  - name: Synthetic Ollama embedding boundary
+    routeKey: ollama
+    path: postman/mocks/ollama-embeddings/config.yaml
+  - name: Structured read-only agent LLM boundary
+    routeKey: llm
+    path: postman/mocks/llm-provider/config.yaml

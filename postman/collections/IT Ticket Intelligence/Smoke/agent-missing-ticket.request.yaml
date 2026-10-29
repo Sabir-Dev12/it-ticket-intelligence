@@ -1,0 +1,11 @@
+$kind: http-request
+name: Agent rejects an unknown ticket
+order: 16000
+method: POST
+url: '{{baseUrl}}/api/tickets/ffffffff-ffff-4fff-bfff-ffffffffffff/investigate'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 404', () => pm.response.to.have.status(404));
+      pm.test('ProblemDetails without a recommendation', () => { const p=pm.response.json();pm.expect(p.status).to.eql(404);pm.expect(p.traceId).to.be.a('string');pm.expect(p).not.to.have.property('recommendedActions'); });

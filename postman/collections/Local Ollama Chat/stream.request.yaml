@@ -1,0 +1,15 @@
+$kind: http-request
+name: Stream message
+order: 6000
+method: POST
+url: '{{baseUrl}}/api/ai/chat/conversations/{{conversationId}}/stream'
+body:
+  type: json
+  content: |-
+    { "message": "Reply with a brief greeting again. /no_think" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Streaming content type',()=>{pm.response.to.have.status(200);pm.expect(pm.response.headers.get('Content-Type')).to.include('application/x-ndjson');});
+      pm.test('Deltas then committed completion',()=>{const rows=pm.response.text().trim().split('\n').map(x=>JSON.parse(x));pm.expect(rows.some(x=>x.type==='delta' && x.text.length>0)).to.eql(true);pm.expect(rows.at(-1).type).to.eql('done');pm.expect(rows.some(x=>x.type==='error')).to.eql(false);});

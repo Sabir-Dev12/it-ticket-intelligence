@@ -1,0 +1,13 @@
+$kind: http-request
+name: Reject unauthenticated ticket hub
+order: 2000
+method: POST
+url: '{{baseUrl}}/hubs/tickets/negotiate?negotiateVersion=1'
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 401',()=>pm.response.to.have.status(401));
+      pm.test('Bearer challenge',()=>pm.expect(pm.response.headers.get('WWW-Authenticate')).to.include('Bearer'));

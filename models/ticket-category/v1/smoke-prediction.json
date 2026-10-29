@@ -1,0 +1,10 @@
+{
+  "inputFile": "samples/category-prediction.json",
+  "expectedCategory": "Billing",
+  "prediction": {
+    "category": "Application",
+    "confidence": 0.19048559665679932,
+    "modelVersion": "category-v1"
+  },
+  "matchesExpected": false
+}

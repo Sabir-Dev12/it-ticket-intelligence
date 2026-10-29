@@ -1,0 +1,28 @@
+$kind: http-request
+name: Create SQL timeout guide
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/knowledge'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "SQL Server connection timeout",
+      "content": "SQL Server connection timeout troubleshooting. When a SQL client cannot establish a database connection before the login timeout, verify the SQL Server instance is running, the server hostname resolves, and TCP port 1433 is reachable. Check firewall rules, SQL Browser for named instances and the connection string. Review SQL Server error logs before increasing connection timeout values.",
+      "source": "{{ragSource}}/sql",
+      "category": "Database",
+      "kind": "TroubleshootingGuide"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      pm.collectionVariables.set('ragSource', 'postman/rag/' + pm.variables.replaceIn('{{$guid}}'));
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));
+      pm.collectionVariables.set('ragSqlId',pm.response.json().id);

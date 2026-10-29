@@ -1,0 +1,21 @@
+$kind: http-request
+name: Discover controlled MCP tools
+order: 1000
+method: POST
+url: '{{baseUrl}}/mcp'
+headers:
+  - key: Accept
+    value: application/json, text/event-stream
+  - key: MCP-Protocol-Version
+    value: '2026-07-28'
+  - key: Mcp-Method
+    value: tools/list
+body:
+  type: json
+  content: '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{}}}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200',()=>pm.response.to.have.status(200));
+      pm.test('Six controlled tools with schemas permissions and read-only hints',()=>{const r=JSON.parse(pm.collectionVariables.get('mcpReply'));pm.expect(r).not.to.have.property('error');pm.expect(r.result.tools.map(t=>t.name).sort()).to.eql(['get_ticket','search_tickets','get_ticket_history','search_knowledge','get_team','get_system_status'].sort());r.result.tools.forEach(t=>{pm.expect(t.inputSchema.additionalProperties).to.eql(false);pm.expect(t.outputSchema.type).to.eql('object');pm.expect(t.annotations.readOnlyHint).to.eql(true);pm.expect(t.annotations.destructiveHint).to.eql(false);pm.expect(t._meta.requiredPermission).to.be.a('string');});});

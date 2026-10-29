@@ -1,0 +1,11 @@
+{
+  "inputFile": "samples/priority-prediction.json",
+  "categoryInputPolicy": "provided-at-creation",
+  "expectedPriority": "Critical",
+  "prediction": {
+    "predictedPriority": "Critical",
+    "confidence": 0.902999222278595,
+    "modelVersion": "priority-v1"
+  },
+  "matchesExpected": true
+}

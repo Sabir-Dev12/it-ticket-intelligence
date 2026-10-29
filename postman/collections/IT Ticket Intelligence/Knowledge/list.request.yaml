@@ -1,0 +1,11 @@
+$kind: http-request
+name: List knowledge guides
+order: 3000
+method: GET
+url: '{{baseUrl}}/api/knowledge?search={{knowledgeSource}}&category=Database&kind=TroubleshootingGuide&page=1&pageSize=10'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Filters return the created guide', () => { const p = pm.response.json(); pm.expect(p.totalCount).to.eql(1); pm.expect(p.items).to.have.lengthOf(1); pm.expect(p.items[0].id).to.eql(pm.collectionVariables.get('knowledgeId')); pm.expect(p.items[0].chunkCount).to.eql(1); });

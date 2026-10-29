@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'Unknown ticket'
+order: 12000
+method: GET
+url: '{{baseUrl}}/api/tickets/00000000-0000-0000-0000-000000000001'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 404', () => pm.response.to.have.status(404));
+      pm.test('ProblemDetails', () => { const p = pm.response.json(); pm.expect(pm.response.headers.get('Content-Type')).to.include('application/problem+json'); pm.expect(p.status).to.eql(404); pm.expect(p.traceId).to.be.a('string'); pm.expect(p.instance).to.include('/api/tickets');  });

@@ -1,0 +1,4 @@
+{
+  "title": "SQL transactions blocked by long running locks",
+  "description": "Writes to the production order tables wait behind a long transaction. The database is reachable, but lock waits are growing and orders cannot be processed at the normal rate."
+}

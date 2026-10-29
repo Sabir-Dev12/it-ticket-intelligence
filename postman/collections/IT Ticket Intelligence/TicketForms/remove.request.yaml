@@ -1,0 +1,10 @@
+$kind: http-request
+name: Remove confirmed attachment
+order: 7000
+method: DELETE
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/attachments/{{attachmentId}}?revision={{revision}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Removal returns the new revision', () => { pm.response.to.have.status(200); const r=pm.response.json(); pm.expect(r.revision).to.be.a('number'); pm.collectionVariables.set('revision',r.revision); });

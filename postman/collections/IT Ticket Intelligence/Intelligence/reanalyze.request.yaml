@@ -1,0 +1,11 @@
+$kind: http-request
+name: Analyze ticket again
+order: 4000
+method: POST
+url: '{{baseUrl}}/api/tickets/{{ticketId}}/analyze'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Same input keeps deterministic predictions', () => pm.expect(pm.response.json()).to.eql(JSON.parse(pm.collectionVariables.get('analysisResult'))));

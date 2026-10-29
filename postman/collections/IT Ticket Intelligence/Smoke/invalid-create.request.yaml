@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'Invalid creation'
+order: 11000
+method: POST
+url: '{{baseUrl}}/api/tickets'
+headers:
+  - key: Accept
+    value: application/json
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 400', () => pm.response.to.have.status(400));
+      pm.test('ProblemDetails', () => { const p = pm.response.json(); pm.expect(pm.response.headers.get('Content-Type')).to.include('application/problem+json'); pm.expect(p.status).to.eql(400); pm.expect(p.traceId).to.be.a('string'); pm.expect(p.instance).to.include('/api/tickets'); pm.expect(p.errors).to.be.an('object'); });

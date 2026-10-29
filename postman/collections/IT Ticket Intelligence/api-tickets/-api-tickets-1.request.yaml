@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'List tickets'
+order: 2000
+method: GET
+url: '{{baseUrl}}/api/tickets?page=1&pageSize=20'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));

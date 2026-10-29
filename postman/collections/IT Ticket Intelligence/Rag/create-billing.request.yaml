@@ -1,0 +1,24 @@
+$kind: http-request
+name: Create billing FAQ
+order: 3000
+method: POST
+url: '{{baseUrl}}/api/knowledge'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Download an invoice PDF",
+      "content": "To download a monthly invoice, open Billing, choose the invoice period and select Download PDF. Confirm that the account has billing administrator permission. Contact billing support for incorrect payment amounts or missing tax details.",
+      "source": "{{ragSource}}/billing",
+      "category": "Billing",
+      "kind": "Faq"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));
+      pm.collectionVariables.set('ragBillingId',pm.response.json().id);

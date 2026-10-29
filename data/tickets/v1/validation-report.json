@@ -1,0 +1,300 @@
+{
+  "checks": [
+    "strict_csv_schema",
+    "required_fields",
+    "allowed_labels",
+    "unique_ids",
+    "consistent_group_labels",
+    "all_classes_in_all_splits",
+    "disjoint_scenario_groups",
+    "no_normalized_duplicate_text",
+    "no_cross_group_duplicate_titles",
+    "cross_split_bigram_jaccard_below_0.65"
+  ],
+  "distributions": {
+    "test": {
+      "Category": {
+        "Account": 6,
+        "Application": 4,
+        "Billing": 2,
+        "Database": 4,
+        "Hardware": 4,
+        "Network": 6,
+        "Other": 2,
+        "Security": 4,
+        "Software": 4
+      },
+      "Priority": {
+        "Critical": 4,
+        "High": 12,
+        "Low": 6,
+        "Medium": 14
+      },
+      "RecommendedTeam": {
+        "Backend": 4,
+        "Database": 4,
+        "Infrastructure": 8,
+        "Network": 6,
+        "Security": 4,
+        "Support": 10
+      },
+      "rows": 36,
+      "scenario_groups": 18
+    },
+    "training": {
+      "Category": {
+        "Account": 24,
+        "Application": 20,
+        "Billing": 16,
+        "Database": 16,
+        "Hardware": 20,
+        "Network": 24,
+        "Other": 8,
+        "Security": 16,
+        "Software": 24
+      },
+      "Priority": {
+        "Critical": 16,
+        "High": 60,
+        "Low": 30,
+        "Medium": 62
+      },
+      "RecommendedTeam": {
+        "Backend": 40,
+        "Database": 6,
+        "Infrastructure": 26,
+        "Network": 20,
+        "Security": 18,
+        "Support": 58
+      },
+      "rows": 168,
+      "scenario_groups": 84
+    },
+    "validation": {
+      "Category": {
+        "Account": 6,
+        "Application": 4,
+        "Billing": 2,
+        "Database": 4,
+        "Hardware": 4,
+        "Network": 6,
+        "Other": 2,
+        "Security": 4,
+        "Software": 4
+      },
+      "Priority": {
+        "Critical": 4,
+        "High": 16,
+        "Low": 6,
+        "Medium": 10
+      },
+      "RecommendedTeam": {
+        "Backend": 6,
+        "Database": 4,
+        "Infrastructure": 8,
+        "Network": 4,
+        "Security": 4,
+        "Support": 10
+      },
+      "rows": 36,
+      "scenario_groups": 18
+    }
+  },
+  "joint_distributions": {
+    "Category_by_Priority": {
+      "Account": {
+        "Critical": 2,
+        "High": 18,
+        "Low": 6,
+        "Medium": 10
+      },
+      "Application": {
+        "Critical": 2,
+        "High": 8,
+        "Low": 4,
+        "Medium": 14
+      },
+      "Billing": {
+        "Critical": 2,
+        "High": 6,
+        "Low": 4,
+        "Medium": 8
+      },
+      "Database": {
+        "Critical": 4,
+        "High": 10,
+        "Low": 4,
+        "Medium": 6
+      },
+      "Hardware": {
+        "Critical": 2,
+        "High": 12,
+        "Low": 6,
+        "Medium": 8
+      },
+      "Network": {
+        "Critical": 6,
+        "High": 12,
+        "Low": 4,
+        "Medium": 14
+      },
+      "Other": {
+        "Low": 6,
+        "Medium": 6
+      },
+      "Security": {
+        "Critical": 6,
+        "High": 12,
+        "Low": 2,
+        "Medium": 4
+      },
+      "Software": {
+        "High": 10,
+        "Low": 6,
+        "Medium": 16
+      }
+    },
+    "Category_by_RecommendedTeam": {
+      "Account": {
+        "Backend": 6,
+        "Infrastructure": 8,
+        "Security": 4,
+        "Support": 18
+      },
+      "Application": {
+        "Backend": 22,
+        "Infrastructure": 4,
+        "Support": 2
+      },
+      "Billing": {
+        "Backend": 12,
+        "Support": 8
+      },
+      "Database": {
+        "Backend": 2,
+        "Database": 14,
+        "Infrastructure": 4,
+        "Support": 4
+      },
+      "Hardware": {
+        "Infrastructure": 10,
+        "Support": 18
+      },
+      "Network": {
+        "Infrastructure": 6,
+        "Network": 28,
+        "Support": 2
+      },
+      "Other": {
+        "Infrastructure": 2,
+        "Support": 10
+      },
+      "Security": {
+        "Backend": 4,
+        "Infrastructure": 2,
+        "Security": 18
+      },
+      "Software": {
+        "Backend": 4,
+        "Infrastructure": 6,
+        "Network": 2,
+        "Security": 4,
+        "Support": 16
+      }
+    },
+    "Priority_by_RecommendedTeam": {
+      "Critical": {
+        "Backend": 4,
+        "Database": 4,
+        "Infrastructure": 6,
+        "Network": 4,
+        "Security": 6
+      },
+      "High": {
+        "Backend": 22,
+        "Database": 6,
+        "Infrastructure": 24,
+        "Network": 12,
+        "Security": 14,
+        "Support": 10
+      },
+      "Low": {
+        "Backend": 4,
+        "Database": 2,
+        "Network": 4,
+        "Security": 2,
+        "Support": 30
+      },
+      "Medium": {
+        "Backend": 20,
+        "Database": 2,
+        "Infrastructure": 12,
+        "Network": 10,
+        "Security": 4,
+        "Support": 38
+      }
+    }
+  },
+  "limitations": [
+    "Synthetic English corpus, not observed production traffic.",
+    "Annotation rationales are authored, not independently human-reviewed.",
+    "Lexical overlap checks cannot rule out semantic leakage or shared author style.",
+    "Two paraphrases per scenario are correlated, not independent incidents.",
+    "Held-out labels have small independent-group support; no reliable performance claim."
+  ],
+  "rows": 240,
+  "scenario_groups": 120,
+  "status": "passed",
+  "strongest_cross_split_text_overlaps": [
+    {
+      "bigram_jaccard": 0.1111,
+      "left": "9b9f769a-b965-56bd-b995-cea37fc130de",
+      "right": "1c534625-3a3d-5d8f-b76c-d5b73f2adb3d"
+    },
+    {
+      "bigram_jaccard": 0.1017,
+      "left": "acae0416-885b-54b7-883a-cb1ca0ffa5a7",
+      "right": "f0e41a48-68e2-5924-b00d-40609b8d36bd"
+    },
+    {
+      "bigram_jaccard": 0.0909,
+      "left": "1fd64fba-d00c-5b0d-9ce8-01f59d2ad85c",
+      "right": "9231df6f-48ca-588b-b9ff-638497736b46"
+    },
+    {
+      "bigram_jaccard": 0.082,
+      "left": "16c4cadf-991c-579b-84a6-d60ab3ae553e",
+      "right": "5d9f1e80-e512-589d-bd7d-2a93775f3ad3"
+    },
+    {
+      "bigram_jaccard": 0.0769,
+      "left": "a44af701-872c-5706-a5ec-b0417c6c2671",
+      "right": "f0e41a48-68e2-5924-b00d-40609b8d36bd"
+    },
+    {
+      "bigram_jaccard": 0.0758,
+      "left": "4f819a61-bb2d-55b6-9094-c1fc5c6ea977",
+      "right": "9ac6d02a-564a-57a0-ac50-e66099c9adba"
+    },
+    {
+      "bigram_jaccard": 0.0714,
+      "left": "77e77a50-5bc4-5a9d-b957-3207cd6e028f",
+      "right": "7a85bc94-3053-544d-861a-6f182e743aba"
+    },
+    {
+      "bigram_jaccard": 0.0702,
+      "left": "e4bf143b-4fa4-599d-864f-fd8b71301b71",
+      "right": "f3636ef7-60ce-5a2b-bc97-02f68493f36d"
+    },
+    {
+      "bigram_jaccard": 0.069,
+      "left": "436ecc83-a5c8-5be1-9724-142dd09290d8",
+      "right": "3d33b53b-b6dc-557d-8d82-b7cfc46b9dc7"
+    },
+    {
+      "bigram_jaccard": 0.0678,
+      "left": "a3e9f82c-6ea4-5118-8c13-aad77c68acf3",
+      "right": "721969d2-d39f-513b-93ff-8409ac4815ff"
+    }
+  ]
+}

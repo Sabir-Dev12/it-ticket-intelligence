@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'List smoke'
+order: 10000
+method: GET
+url: '{{baseUrl}}/api/tickets?page=1&pageSize=2'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Pagination contract', () => { const p = pm.response.json(); pm.expect(p.items).to.be.an('array'); pm.expect(p.items.length).to.be.at.most(2); pm.expect(p.page).to.eql(1); pm.expect(p.pageSize).to.eql(2); });

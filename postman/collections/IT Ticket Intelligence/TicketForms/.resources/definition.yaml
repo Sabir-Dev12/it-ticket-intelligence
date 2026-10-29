@@ -1,0 +1,9 @@
+$kind: collection
+name: TicketForms
+order: 17000
+description: 'Creates an owned test ticket, updates it, uploads/downloads/removes evidence and archives it. Requires existing active userId/teamId and attachmentFilePath pointing to a UTF-8 text fixture.'
+variables:
+  - key: attachmentFilePath
+    value: ''
+  - key: attachmentId
+    value: '00000000-0000-0000-0000-000000000000'

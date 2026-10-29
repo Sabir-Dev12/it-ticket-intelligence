@@ -1,0 +1,4 @@
+{
+  "title": "Cannot download my invoice PDF",
+  "description": "The billing page shows this month's invoice, but downloading the PDF returns an empty document. Other account pages work and I can view the invoice online."
+}

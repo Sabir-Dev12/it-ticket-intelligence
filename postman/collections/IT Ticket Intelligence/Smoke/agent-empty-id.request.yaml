@@ -1,0 +1,11 @@
+$kind: http-request
+name: Agent rejects an empty ticket ID
+order: 15000
+method: POST
+url: '{{baseUrl}}/api/tickets/00000000-0000-0000-0000-000000000000/investigate'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 400', () => pm.response.to.have.status(400));
+      pm.test('Validation ProblemDetails', () => { const p=pm.response.json();pm.expect(p.status).to.eql(400);pm.expect(p.errors).to.have.property('ticketId');pm.expect(p.traceId).to.be.a('string'); });

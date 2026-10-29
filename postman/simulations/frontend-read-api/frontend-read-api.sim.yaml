@@ -1,0 +1,6 @@
+simulation: frontend-read-api
+routing: path
+mocks:
+  - name: Ticket and Knowledge REST reads
+    routeKey: helpdesk
+    path: postman/mocks/frontend-read-api/config.yaml

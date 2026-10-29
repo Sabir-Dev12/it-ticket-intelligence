@@ -1,0 +1,11 @@
+$kind: http-request
+name: Get prepared knowledge document
+order: 2000
+method: GET
+url: '{{baseUrl}}/api/knowledge/{{knowledgeId}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Persisted chunk retains its identity and metadata', () => { const d = pm.response.json(); pm.expect(d.id).to.eql(pm.collectionVariables.get('knowledgeId')); pm.expect(d.chunks[0].id).to.eql(pm.collectionVariables.get('oldKnowledgeChunk')); pm.expect(d.chunks[0].metadata.documentVersion).to.eql(d.version); });

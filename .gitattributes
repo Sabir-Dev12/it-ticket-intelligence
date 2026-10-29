@@ -1,0 +1,11 @@
+# Preserve reproducible dataset bytes and SHA-256 manifests across checkouts.
+data/tickets/**/*.csv text eol=lf
+data/tickets/**/*.json text eol=lf
+data/tickets/**/*.jsonl text eol=lf
+scripts/datasets/*.py text eol=lf
+models/ticket-category/**/model.zip -text
+models/ticket-category/**/*.json text eol=lf
+models/ticket-priority/**/model.zip -text
+models/ticket-priority/**/*.json text eol=lf
+models/ticket-team/**/model.zip -text
+models/ticket-team/**/*.json text eol=lf

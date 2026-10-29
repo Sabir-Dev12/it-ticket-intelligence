@@ -1,0 +1,23 @@
+$kind: http-request
+name: Priority prediction
+order: 16000
+method: POST
+url: '{{baseUrl}}/api/predictions/priority'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Production service unavailable to every office",
+      "description": "All employees are unable to access the production transaction service. Both the primary and backup connections have failed, work has stopped across all sites, and no alternative access is available.",
+      "category": "Network"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Priority belongs to the public taxonomy', () => pm.expect(['Low','Medium','High','Critical']).to.include(pm.response.json().predictedPriority));
+      pm.test('Priority score is finite and versioned', () => { const p = pm.response.json(); pm.expect(Number.isFinite(p.confidence)).to.eql(true); pm.expect(p.confidence).to.be.within(0,1); pm.expect(p.modelVersion).to.be.a('string').and.not.empty; });

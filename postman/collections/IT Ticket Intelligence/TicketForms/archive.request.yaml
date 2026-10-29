@@ -1,0 +1,10 @@
+$kind: http-request
+name: Archive owned test ticket
+order: 8000
+method: DELETE
+url: '{{baseUrl}}/api/tickets/{{ticketId}}?revision={{revision}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Fixture ticket archived', () => pm.response.to.have.status(204));

@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create knowledge guide
+order: 1000
+method: POST
+url: '{{baseUrl}}/api/knowledge'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "SQL connection troubleshooting",
+      "content": "# Connection checks\n\nCheck **SQL Server** status and the configured endpoint.",
+      "source": "{{knowledgeSource}}",
+      "category": "Database",
+      "kind": "TroubleshootingGuide",
+      "format": "Markdown"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      pm.collectionVariables.set('knowledgeSource', 'postman/knowledge/' + pm.variables.replaceIn('{{$guid}}'));
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 201', () => pm.response.to.have.status(201));
+      pm.test('Document extracted cleaned and chunked', () => { const d = pm.response.json(); pm.expect(d.version).to.eql(1); pm.expect(d.cleanedContent).to.eql('Connection checks\n\nCheck SQL Server status and the configured endpoint.'); pm.expect(d.processingVersion).to.eql('text-v1'); pm.expect(d.processedAt).to.be.a('string'); pm.expect(d.chunks).to.have.lengthOf(1); });
+      pm.test('Chunk metadata matches the document', () => { const d = pm.response.json(); for (const c of d.chunks) { const m = c.metadata; pm.expect(m.documentId).to.eql(d.id); pm.expect(m.documentVersion).to.eql(1); pm.expect(m.title).to.eql(d.title); pm.expect(m.source).to.eql(d.source); pm.expect(m.category).to.eql('Database'); pm.expect(m.kind).to.eql('TroubleshootingGuide'); pm.expect(m.contentHash).to.match(/^[0-9a-f]{64}$/); pm.expect(c.content).to.eql(d.cleanedContent.slice(m.startOffset,m.endOffset)); } pm.collectionVariables.set('knowledgeId', d.id); pm.collectionVariables.set('knowledgeVersion', String(d.version)); pm.collectionVariables.set('oldKnowledgeChunk', d.chunks[0].id); });

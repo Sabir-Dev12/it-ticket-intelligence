@@ -1,0 +1,22 @@
+$kind: http-request
+name: Category prediction
+order: 14000
+method: POST
+url: '{{baseUrl}}/api/predictions/category'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Cannot download my invoice PDF",
+      "description": "The billing page shows this month's invoice, but downloading the PDF returns an empty document. Other account pages work and I can view the invoice online."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('HTTP 200', () => pm.response.to.have.status(200));
+      pm.test('Category belongs to the public taxonomy', () => pm.expect(['Hardware','Software','Network','Database','Security','Billing','Account','Application','Other']).to.include(pm.response.json().category));
+      pm.test('Finite bounded confidence and model provenance', () => { const p = pm.response.json(); pm.expect(Number.isFinite(p.confidence)).to.eql(true); pm.expect(p.confidence).to.be.within(0,1); pm.expect(p.modelVersion).to.be.a('string').and.not.empty; });

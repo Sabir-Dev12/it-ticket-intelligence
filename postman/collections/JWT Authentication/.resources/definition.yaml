@@ -1,0 +1,17 @@
+$kind: collection
+name: JWT Authentication
+description: 'Real JWT login, authorization and revocation. Supply authEmail/authPassword outside source control. Run locally with --no-report-events.'
+variables:
+  - key: baseUrl
+    value: 'http://127.0.0.1:5080'
+  - key: authEmail
+    value: ''
+  - key: authPassword
+    value: ''
+  - key: accessToken
+    value: ''
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{accessToken}}'

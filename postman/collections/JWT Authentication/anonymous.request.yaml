@@ -1,0 +1,12 @@
+$kind: http-request
+name: Anonymous tickets denied
+order: 1000
+method: GET
+url: '{{baseUrl}}/api/tickets'
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Anonymous request receives 401', () => pm.response.to.have.status(401));

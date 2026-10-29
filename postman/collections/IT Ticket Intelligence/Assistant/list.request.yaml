@@ -1,0 +1,10 @@
+$kind: http-request
+name: List owned conversations
+order: 4000
+method: GET
+url: '{{baseUrl}}/api/assistant/conversations?page=1'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Scoped paginated history', () => { pm.response.to.have.status(200); const p=pm.response.json(); pm.expect(p.page).to.eql(1); pm.expect(p.items.length).to.be.at.most(20); pm.expect(p.hasMore).to.be.a('boolean'); });

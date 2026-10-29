@@ -1,0 +1,14 @@
+$kind: http-request
+name: Send message
+order: 5000
+method: POST
+url: '{{baseUrl}}/api/ai/chat/conversations/{{conversationId}}/messages'
+body:
+  type: json
+  content: |-
+    { "message": "Reply with a brief greeting. /no_think" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Non-streaming answer',()=>{pm.response.to.have.status(200);pm.expect(pm.response.json().text.length).to.be.above(0);});

@@ -1,0 +1,382 @@
+{
+  "modelVersion": "category-v1",
+  "trainer": "SdcaMaximumEntropy",
+  "seed": 20261024,
+  "iterations": 200,
+  "threads": 1,
+  "l2Regularization": 0.01,
+  "selectionPolicy": "One predefined pipeline; fit training only; validation reported before one final test evaluation.",
+  "majorityLabel": "Account",
+  "validation": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.16666666666666666,
+    "macroAccuracy": 0.1388888888888889,
+    "logLoss": 2.053697133375948,
+    "macroF1": 0.10582010582010581,
+    "majorityBaselineAccuracy": 0.16666666666666666,
+    "labels": [
+      "Account",
+      "Application",
+      "Billing",
+      "Database",
+      "Hardware",
+      "Network",
+      "Other",
+      "Security",
+      "Software"
+    ],
+    "confusionMatrix": [
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
+    ],
+    "perClass": [
+      {
+        "category": "Account",
+        "support": 6,
+        "precision": 0.6666666666666666,
+        "recall": 0.3333333333333333,
+        "f1": 0.4444444444444444
+      },
+      {
+        "category": "Application",
+        "support": 4,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Billing",
+        "support": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Database",
+        "support": 4,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Hardware",
+        "support": 4,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Network",
+        "support": 6,
+        "precision": 1,
+        "recall": 0.16666666666666666,
+        "f1": 0.2857142857142857
+      },
+      {
+        "category": "Other",
+        "support": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Security",
+        "support": 4,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Software",
+        "support": 4,
+        "precision": 0.13043478260869565,
+        "recall": 0.75,
+        "f1": 0.22222222222222218
+      }
+    ]
+  },
+  "test": {
+    "tickets": 36,
+    "scenarios": 18,
+    "accuracy": 0.25,
+    "macroAccuracy": 0.23148148148148145,
+    "logLoss": 2.0084754317293627,
+    "macroF1": 0.22440087145969498,
+    "majorityBaselineAccuracy": 0.16666666666666666,
+    "labels": [
+      "Account",
+      "Application",
+      "Billing",
+      "Database",
+      "Hardware",
+      "Network",
+      "Other",
+      "Security",
+      "Software"
+    ],
+    "confusionMatrix": [
+      [
+        2,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "perClass": [
+      {
+        "category": "Account",
+        "support": 6,
+        "precision": 1,
+        "recall": 0.3333333333333333,
+        "f1": 0.5
+      },
+      {
+        "category": "Application",
+        "support": 4,
+        "precision": 0.23076923076923078,
+        "recall": 0.75,
+        "f1": 0.3529411764705882
+      },
+      {
+        "category": "Billing",
+        "support": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Database",
+        "support": 4,
+        "precision": 1,
+        "recall": 0.25,
+        "f1": 0.4
+      },
+      {
+        "category": "Hardware",
+        "support": 4,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Network",
+        "support": 6,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Other",
+        "support": 2,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "category": "Security",
+        "support": 4,
+        "precision": 1,
+        "recall": 0.5,
+        "f1": 0.6666666666666666
+      },
+      {
+        "category": "Software",
+        "support": 4,
+        "precision": 0.0625,
+        "recall": 0.25,
+        "f1": 0.1
+      }
+    ]
+  }
+}
