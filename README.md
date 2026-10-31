@@ -19,7 +19,7 @@ Les suggestions de l’IA restent soumises à la décision humaine.
 
 </div>
 
-![Dashboard de IT Ticket Intelligence, thème clair](docs/screenshots/dashboard.png)
+![Tableau de bord connecté avec le compte Admin de démonstration](docs/screenshots/roles/admin-dashboard.jpg)
 
 ## Le projet
 
@@ -44,21 +44,126 @@ Le parcours relie un ticket, des prédictions de catégorie/priorité/équipe, u
 
 ## Aperçu de l’application
 
-Captures existantes de l’application React en environnement de développement, avec des exemples de tickets. Certaines vues illustrent des étapes antérieures du projet ; les données, dates et indicateurs affichés ne constituent pas des mesures de production.
+**Quatre comptes, quatre parcours.** Captures récentes de l’application connectée avec les rôles **Admin**, **User**, **Agent** et **Support**. Les noms, adresses et tickets affichés sont fictifs, dans une base de démonstration séparée.
+
+**Faites défiler chaque galerie vers la droite** avec sa barre de défilement, le pavé tactile ou `Maj + molette`. **Cliquez sur une capture pour l’ouvrir en grand.** Chaque image conserve ses proportions et présente la page complète.
+
+[Admin](#compte-admin) · [User](#compte-user) · [Agent](#compte-agent) · [Support](#compte-support)
+
+### Compte Admin
+
+Administration du workspace : dashboard, comptes, tickets, documents et intelligence.
 
 <table>
-<tr><th align="left">Dashboard — thème sombre</th><th align="left">Base de connaissances</th></tr>
-<tr><td><img src="docs/screenshots/dashboard-dark.png" alt="Vue d’ensemble du support en thème sombre" width="600"></td><td><img src="docs/screenshots/knowledge.png" alt="Bibliothèque de guides et procédures" width="600"></td></tr>
-<tr><th align="left">Création d’un ticket</th><th align="left">Analytics — thème sombre</th></tr>
-<tr><td><img src="docs/screenshots/create-ticket.png" alt="Formulaire de création d’un ticket" width="600"></td><td><img src="docs/screenshots/analytics.png" alt="Répartition des catégories, priorités et statuts" width="600"></td></tr>
+<tr>
+<th align="left">01&nbsp;·&nbsp;Tableau&nbsp;de&nbsp;bord&nbsp;—&nbsp;Admin</th>
+<th align="left">02&nbsp;·&nbsp;Gestion&nbsp;des&nbsp;comptes&nbsp;—&nbsp;Admin</th>
+<th align="left">03&nbsp;·&nbsp;Tous&nbsp;les&nbsp;tickets&nbsp;—&nbsp;Admin</th>
+<th align="left">04&nbsp;·&nbsp;Détail&nbsp;et&nbsp;analyse&nbsp;d’un&nbsp;ticket&nbsp;—&nbsp;Admin</th>
+<th align="left">05&nbsp;·&nbsp;Créer&nbsp;un&nbsp;ticket&nbsp;—&nbsp;Admin</th>
+<th align="left">06&nbsp;·&nbsp;Modifier&nbsp;un&nbsp;ticket&nbsp;—&nbsp;Admin</th>
+<th align="left">07&nbsp;·&nbsp;Assistant&nbsp;IA&nbsp;—&nbsp;Admin</th>
+<th align="left">08&nbsp;·&nbsp;Base&nbsp;de&nbsp;connaissances&nbsp;—&nbsp;Admin</th>
+<th align="left">09&nbsp;·&nbsp;Lire&nbsp;un&nbsp;guide&nbsp;—&nbsp;Admin</th>
+<th align="left">10&nbsp;·&nbsp;Ajouter&nbsp;un&nbsp;document&nbsp;—&nbsp;Admin</th>
+<th align="left">11&nbsp;·&nbsp;Analytics&nbsp;du&nbsp;workspace&nbsp;—&nbsp;Admin</th>
+<th align="left">12&nbsp;·&nbsp;Réglages&nbsp;de&nbsp;la&nbsp;session&nbsp;—&nbsp;Admin</th>
+</tr>
+<tr>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-dashboard.jpg"><img src="docs/screenshots/roles/admin-dashboard.jpg" alt="Compte Admin — Tableau de bord" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-users.jpg"><img src="docs/screenshots/roles/admin-users.jpg" alt="Compte Admin — Gestion des comptes" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-tickets.jpg"><img src="docs/screenshots/roles/admin-tickets.jpg" alt="Compte Admin — Tous les tickets" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-ticket-detail.jpg"><img src="docs/screenshots/roles/admin-ticket-detail.jpg" alt="Compte Admin — Détail et analyse d’un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-create-ticket.jpg"><img src="docs/screenshots/roles/admin-create-ticket.jpg" alt="Compte Admin — Créer un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-edit-ticket.jpg"><img src="docs/screenshots/roles/admin-edit-ticket.jpg" alt="Compte Admin — Modifier un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-assistant.jpg"><img src="docs/screenshots/roles/admin-assistant.jpg" alt="Compte Admin — Assistant IA" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-knowledge.jpg"><img src="docs/screenshots/roles/admin-knowledge.jpg" alt="Compte Admin — Base de connaissances" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-knowledge-detail.jpg"><img src="docs/screenshots/roles/admin-knowledge-detail.jpg" alt="Compte Admin — Lire un guide" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-create-knowledge.jpg"><img src="docs/screenshots/roles/admin-create-knowledge.jpg" alt="Compte Admin — Ajouter un document" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-analytics.jpg"><img src="docs/screenshots/roles/admin-analytics.jpg" alt="Compte Admin — Analytics du workspace" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/admin-settings.jpg"><img src="docs/screenshots/roles/admin-settings.jpg" alt="Compte Admin — Réglages de la session" width="720"></a></td>
+</tr>
+</table>
+
+### Compte User
+
+Espace utilisateur : quatre tickets personnels dans ce jeu de démonstration.
+
+<table>
+<tr>
+<th align="left">01&nbsp;·&nbsp;Mes&nbsp;tickets&nbsp;—&nbsp;User</th>
+<th align="left">02&nbsp;·&nbsp;Détail&nbsp;d’un&nbsp;ticket&nbsp;personnel&nbsp;—&nbsp;User</th>
+<th align="left">03&nbsp;·&nbsp;Créer&nbsp;une&nbsp;demande&nbsp;—&nbsp;User</th>
+<th align="left">04&nbsp;·&nbsp;Analytics&nbsp;de&nbsp;mes&nbsp;tickets&nbsp;—&nbsp;User</th>
+<th align="left">05&nbsp;·&nbsp;Réglages&nbsp;de&nbsp;ma&nbsp;session&nbsp;—&nbsp;User</th>
+</tr>
+<tr>
+<td align="center" valign="top"><a href="docs/screenshots/roles/user-tickets.jpg"><img src="docs/screenshots/roles/user-tickets.jpg" alt="Compte User — Mes tickets" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/user-ticket-detail.jpg"><img src="docs/screenshots/roles/user-ticket-detail.jpg" alt="Compte User — Détail d’un ticket personnel" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/user-create-ticket.jpg"><img src="docs/screenshots/roles/user-create-ticket.jpg" alt="Compte User — Créer une demande" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/user-analytics.jpg"><img src="docs/screenshots/roles/user-analytics.jpg" alt="Compte User — Analytics de mes tickets" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/user-settings.jpg"><img src="docs/screenshots/roles/user-settings.jpg" alt="Compte User — Réglages de ma session" width="720"></a></td>
+</tr>
+</table>
+
+### Compte Agent
+
+Espace agent : huit tickets affectés à son équipe, assistant et guides de dépannage.
+
+<table>
+<tr>
+<th align="left">01&nbsp;·&nbsp;Tickets&nbsp;de&nbsp;mon&nbsp;équipe&nbsp;—&nbsp;Agent</th>
+<th align="left">02&nbsp;·&nbsp;Investigation&nbsp;d’un&nbsp;ticket&nbsp;—&nbsp;Agent</th>
+<th align="left">03&nbsp;·&nbsp;Assistant&nbsp;IA&nbsp;—&nbsp;Agent</th>
+<th align="left">04&nbsp;·&nbsp;Base&nbsp;de&nbsp;connaissances&nbsp;—&nbsp;Agent</th>
+<th align="left">05&nbsp;·&nbsp;Consulter&nbsp;un&nbsp;guide&nbsp;—&nbsp;Agent</th>
+<th align="left">06&nbsp;·&nbsp;Analytics&nbsp;de&nbsp;mon&nbsp;périmètre&nbsp;—&nbsp;Agent</th>
+<th align="left">07&nbsp;·&nbsp;Réglages&nbsp;de&nbsp;la&nbsp;session&nbsp;—&nbsp;Agent</th>
+</tr>
+<tr>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-tickets.jpg"><img src="docs/screenshots/roles/agent-tickets.jpg" alt="Compte Agent — Tickets de mon équipe" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-ticket-detail.jpg"><img src="docs/screenshots/roles/agent-ticket-detail.jpg" alt="Compte Agent — Investigation d’un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-assistant.jpg"><img src="docs/screenshots/roles/agent-assistant.jpg" alt="Compte Agent — Assistant IA" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-knowledge.jpg"><img src="docs/screenshots/roles/agent-knowledge.jpg" alt="Compte Agent — Base de connaissances" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-knowledge-detail.jpg"><img src="docs/screenshots/roles/agent-knowledge-detail.jpg" alt="Compte Agent — Consulter un guide" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-analytics.jpg"><img src="docs/screenshots/roles/agent-analytics.jpg" alt="Compte Agent — Analytics de mon périmètre" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/agent-settings.jpg"><img src="docs/screenshots/roles/agent-settings.jpg" alt="Compte Agent — Réglages de la session" width="720"></a></td>
+</tr>
+</table>
+
+### Compte Support
+
+Espace support : douze tickets du workspace, création, modification et investigation.
+
+<table>
+<tr>
+<th align="left">01&nbsp;·&nbsp;Tous&nbsp;les&nbsp;tickets&nbsp;—&nbsp;Support</th>
+<th align="left">02&nbsp;·&nbsp;Détail&nbsp;et&nbsp;analyse&nbsp;d’un&nbsp;ticket&nbsp;—&nbsp;Support</th>
+<th align="left">03&nbsp;·&nbsp;Créer&nbsp;un&nbsp;ticket&nbsp;—&nbsp;Support</th>
+<th align="left">04&nbsp;·&nbsp;Modifier&nbsp;un&nbsp;ticket&nbsp;—&nbsp;Support</th>
+<th align="left">05&nbsp;·&nbsp;Assistant&nbsp;IA&nbsp;—&nbsp;Support</th>
+<th align="left">06&nbsp;·&nbsp;Base&nbsp;de&nbsp;connaissances&nbsp;—&nbsp;Support</th>
+<th align="left">07&nbsp;·&nbsp;Consulter&nbsp;un&nbsp;guide&nbsp;—&nbsp;Support</th>
+<th align="left">08&nbsp;·&nbsp;Analytics&nbsp;du&nbsp;support&nbsp;—&nbsp;Support</th>
+<th align="left">09&nbsp;·&nbsp;Réglages&nbsp;de&nbsp;la&nbsp;session&nbsp;—&nbsp;Support</th>
+</tr>
+<tr>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-tickets.jpg"><img src="docs/screenshots/roles/support-tickets.jpg" alt="Compte Support — Tous les tickets" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-ticket-detail.jpg"><img src="docs/screenshots/roles/support-ticket-detail.jpg" alt="Compte Support — Détail et analyse d’un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-create-ticket.jpg"><img src="docs/screenshots/roles/support-create-ticket.jpg" alt="Compte Support — Créer un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-edit-ticket.jpg"><img src="docs/screenshots/roles/support-edit-ticket.jpg" alt="Compte Support — Modifier un ticket" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-assistant.jpg"><img src="docs/screenshots/roles/support-assistant.jpg" alt="Compte Support — Assistant IA" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-knowledge.jpg"><img src="docs/screenshots/roles/support-knowledge.jpg" alt="Compte Support — Base de connaissances" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-knowledge-detail.jpg"><img src="docs/screenshots/roles/support-knowledge-detail.jpg" alt="Compte Support — Consulter un guide" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-analytics.jpg"><img src="docs/screenshots/roles/support-analytics.jpg" alt="Compte Support — Analytics du support" width="720"></a></td>
+<td align="center" valign="top"><a href="docs/screenshots/roles/support-settings.jpg"><img src="docs/screenshots/roles/support-settings.jpg" alt="Compte Support — Réglages de la session" width="720"></a></td>
+</tr>
 </table>
 
 <details>
-<summary><strong>Voir la connexion et la version mobile</strong></summary>
+<summary><strong>Écran de connexion commun aux quatre rôles</strong></summary>
 
-![Écran de connexion](docs/screenshots/login.png)
-
-<img src="docs/screenshots/mobile.png" alt="Dashboard responsive sur un écran mobile" width="300">
+![Connexion à IT Ticket Intelligence](docs/screenshots/roles/login.jpg)
 
 </details>
 
